@@ -215,7 +215,19 @@ function gsearch(){
 				series: [
 					{
 						type : 'bar',
-						data:${pd.nJson.nData}
+						data:${pd.nJson.nData},
+						itemStyle: {
+							normal: {
+								label: {
+									show: true, //开启显示
+									position: 'top', //在上方显示
+									textStyle: { //数值样式
+										color: 'black',
+										fontSize: 16
+									}
+								}
+							}
+						},
 					}
 				]
         
@@ -260,9 +272,21 @@ function gsearch(){
         ],
         series : [
             {
-                type:'bar',
-                barWidth: '60%',
-                data:${pd.nnJson.nnData}
+							type:'bar',
+							barWidth: '60%',
+							data:${pd.nnJson.nnData},
+							itemStyle: {
+								normal: {
+									label: {
+										show: true, //开启显示
+										position: 'top', //在上方显示
+										textStyle: { //数值样式
+											color: 'black',
+											fontSize: 16
+										}
+									}
+								}
+							},
             }
         ]
     };
@@ -311,7 +335,19 @@ function gsearch(){
 				series: [
 					{
 						type : 'bar',
-						data:xxData
+						data:xxData,
+						itemStyle: {
+							normal: {
+								label: {
+									show: true, //开启显示
+									position: 'top', //在上方显示
+									textStyle: { //数值样式
+										color: 'black',
+										fontSize: 16
+									}
+								}
+							}
+						},
 					}
 				]
         
@@ -355,7 +391,19 @@ function gsearch(){
             {
                 type:'bar',
                 barWidth: '60%',
-                data:yyData
+								data:yyData,
+								itemStyle: {
+									normal: {
+										label: {
+											show: true, //开启显示
+											position: 'top', //在上方显示
+											textStyle: { //数值样式
+												color: 'black',
+												fontSize: 16
+											}
+										}
+									}
+								},
             }
         ]
     };

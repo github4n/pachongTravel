@@ -217,20 +217,20 @@ function gsearch(){
 				)
 			})
 			console.log(result.data.listp);
-			if(result.data.list === undefined || result.data.list.length == 0){}else{
-				$("#newTable").append(
-				'<tr>'+
-				'<td class="hidden-480">5次及以上</td>'+
-				'<td class="hidden-480">' + result.data.ordertotalSum	+'</td>' +
-				'<td class="hidden-480">'  + result.data.ptage +'</td>'+
-				'</tr>'+
-				'<tr>'+
-				'<td class="hidden-480">合计</td>'+
-				'<td class="hidden-480">' + result.data.ototalSum	+'</td>' +
-				'<td class="hidden-480"></td>'+
-				'</tr>'
-				)
-			}
+			
+			$("#newTable").append(
+			'<tr>'+
+			'<td class="hidden-480">5次及以上</td>'+
+			'<td class="hidden-480">' + result.data.ordertotalSum	+'</td>' +
+			'<td class="hidden-480">'  + result.data.ptage +'</td>'+
+			'</tr>'+
+			'<tr>'+
+			'<td class="hidden-480">合计</td>'+
+			'<td class="hidden-480">' + result.data.ototalSum	+'</td>' +
+			'<td class="hidden-480"></td>'+
+			'</tr>'
+			)
+			
 			
 			let yData =  result.data.yJson.yData.filter(function(element,index){
 				return index <= 3;
@@ -306,7 +306,19 @@ function gsearch(){
 							name:'百分比',
 							type:'bar',
 							barWidth: '60%',
-							data:${pd.yJson.yData }
+							data:${pd.yJson.yData },
+							itemStyle:{
+								normal:{
+									label:{
+										show: true,
+										position: 'top', //在上方显示
+										textStyle: { //数值样式
+											color: 'black',
+											fontSize: 16
+										}
+									}
+								}
+							}
             }
         ]
     };
@@ -358,7 +370,19 @@ function gsearch(){
 							name:'百分比',
 							type:'bar',
 							barWidth: '60%',
-							data:yData
+							data:yData,
+							itemStyle:{
+								normal:{
+									label:{
+										show: true,
+										position: 'top', //在上方显示
+										textStyle: { //数值样式
+											color: 'black',
+											fontSize: 16
+										}
+									}
+								}
+							}
 						}
 				]
 			};

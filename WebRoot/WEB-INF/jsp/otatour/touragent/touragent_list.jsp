@@ -115,8 +115,23 @@
 											</thead>
 
 											<tbody id="J_TbData">
-												
-											
+													<c:choose>
+														<c:when test="${not empty varList}">
+															<c:forEach items="${varList}" var="var" varStatus="vs">
+														<tr>
+															<td class="hidden-480">${var.i }</td>
+															<td class="hidden-480">${var.x }</td>
+															<td class="hidden-480">${var.y }</td>
+															<!-- <td class="hidden-480">${var.z }%</td> -->
+														</tr>
+															</c:forEach>
+														</c:when>
+													</c:choose>
+													<tr>
+														<td class="hidden-480">合计</td>
+														<td class="hidden-480"></td>
+														<td class="hidden-480">0</td>
+													<tr>
 											</tbody>
 										</table>
 											</div>
@@ -152,29 +167,13 @@
 			<input type="hidden" name="type" id="insertData" value="1">
 		</form>
 <script type="text/javascript">
-	$(function(){
+	// $(function(){
 	
-		$("#J_TbData").append(`
-		<c:choose>
-			<c:when test="${not empty varList}">
-				<c:forEach items="${varList}" var="var" varStatus="vs">
-			<tr>
-				<td class="hidden-480">${var.i }</td>
-				<td class="hidden-480">${var.x }</td>
-				<td class="hidden-480">${var.y }</td>
-				<!-- <td class="hidden-480">${var.z }%</td> -->
-			</tr>
-				</c:forEach>
-			</c:when>
-		</c:choose>
-		<tr>
-			<td class="hidden-480">合计</td>
-			<td class="hidden-480"></td>
-			<td class="hidden-480"></td>
-		<tr>
-		`);
+	// 	$("#J_TbData").append(`
+		
+	// 	`);
 			
-	});
+	// });
 //日期框
 $('.choose-box').click(function(event) {
 	var event=event||e;
@@ -242,122 +241,127 @@ laydate.render({
 			//    subtext: '莫斯利安香草园',
 			//    x:'center'
 			// },
-            tooltip: {
-            	trigger: 'item',
-            	formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-            legend: {
-                type: 'scroll',
-                orient: 'vertical',
-                right: 10,
-                top: 20,
-                bottom: 20,
-                data: ${pd.xJson.xData },
-            },
-            series: [
-							{
-            		name: '渠道',
-            		type: 'pie',
-            		radius : '55%',
-            		center: ['40%', '50%'],
-            		data: ${pd.zJson.zData},
-            		itemStyle: {
-                	normal:{
-										color: function(params) {
-                        // build a color map as your need.
-                        var colorList = [
-                          '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
-                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-                           '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
-                        ];
-                        return colorList[params.dataIndex]
-                    },
-									},
-                	emphasis: {
-										shadowBlur: 10,
-										shadowOffsetX: 0,
-										shadowColor: 'rgba(0, 0, 0, 0.5)'
-									}
-            		}
-							}
-            ]
-        };	        
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-				/*窗口自适应，关键代码*/
-				setTimeout(function (){
-					window.onresize = function () {
-						myChart.resize();
+			tooltip: {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+					type: 'scroll',
+					orient: 'vertical',
+					right: 10,
+					top: 20,
+					bottom: 20,
+					data: ${pd.xJson.xData },
+			},
+			series: [
+				{
+					name: '渠道',
+					type: 'pie',
+					radius : '55%',
+					center: ['40%', '50%'],
+					data: ${pd.zJson.zData},
+					itemStyle: {
+						normal:{
+							color: function(params) {
+									// build a color map as your need.
+									var colorList = [
+										'#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+											'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+											'#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+									];
+									return colorList[params.dataIndex]
+							},
+						},
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
 					}
-				},200)
-				//重新加载table
-				function reloadTable(zData){
-					$("#J_TbData").empty();
-					console.log(zData);
-					var newData = zData;
-					newData.forEach(function(item,index){
-						$("#J_TbData").append(
-						'<tr>'+
-						'<td class="hidden-480">' + (index+1) 	+'</td>' +
-						'<td class="hidden-480">'  + item.name +'</td>'+
-						'<td class="hidden-480">'  + item.value +'</td>'+
-						'</tr>'
-							
-						)
-						
-					})
-					
 				}
-				//重新加载Echarts
-				function reloadEcharts(xData,zData){
-					// 重新指定图表的配置项和数据
-					var option = {
-					// title : {
-					//    text: '分销渠道分布',
-					//    subtext: '莫斯利安香草园',
-					//    x:'center'
-					// },
-            tooltip: {
-            	trigger: 'item',
-            	formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-            legend: {
-                type: 'scroll',
-                orient: 'vertical',
-                right: 10,
-                top: 20,
-                bottom: 20,
-                data: xData ,
-            },
-            series: [
-							{
-            		name: '渠道',
-            		type: 'pie',
-            		radius : '55%',
-            		center: ['40%', '50%'],
-            		data: zData,
-            		itemStyle: {
-									normal:{
-										color: function(params) {
-                        // build a color map as your need.
-                        var colorList = [
-                          '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
-                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-                           '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
-                        ];
-                        return colorList[params.dataIndex]
-                    },
-									},
-                	emphasis: {
-										shadowBlur: 10,
-										shadowOffsetX: 0,
-										shadowColor: 'rgba(0, 0, 0, 0.5)'
-									}
-            		}
+			]
+		};	        
+
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+		/*窗口自适应，关键代码*/
+		setTimeout(function (){
+			window.onresize = function () {
+				myChart.resize();
+			}
+		},200)
+
+		//重新加载table
+		function reloadTable(zData){
+			$("#J_TbData").empty();
+			console.log(zData);
+			var newData = zData;
+			newData.forEach(function(item,index){
+				$("#J_TbData").append(
+					'<tr>'+
+					'<td class="hidden-480">' + (index+1) 	+'</td>' +
+					'<td class="hidden-480">'  + item.name +'</td>'+
+					'<td class="hidden-480">'  + item.value +'</td>'+
+					'</tr>'
+				)	
+			})
+			$("#J_TbData").append(
+				'<tr>'+
+				'<td class="hidden-480">合计</td>' +
+				'<td class="hidden-480"></td>'+
+				'<td class="hidden-480">0</td>'+
+				'</tr>'
+			)	
+		}
+		//重新加载Echarts
+		function reloadEcharts(xData,zData){
+			// 重新指定图表的配置项和数据
+			var option = {
+			// title : {
+			//    text: '分销渠道分布',
+			//    subtext: '莫斯利安香草园',
+			//    x:'center'
+			// },
+				tooltip: {
+					trigger: 'item',
+					formatter: "{a} <br/>{b} : {c} ({d}%)"
+				},
+				legend: {
+						type: 'scroll',
+						orient: 'vertical',
+						right: 10,
+						top: 20,
+						bottom: 20,
+						data: xData ,
+				},
+				series: [
+					{
+						name: '渠道',
+						type: 'pie',
+						radius : '55%',
+						center: ['40%', '50%'],
+						data: zData,
+						itemStyle: {
+							normal:{
+								color: function(params) {
+										// build a color map as your need.
+										var colorList = [
+											'#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+												'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+												'#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+										];
+										return colorList[params.dataIndex]
+								},
+							},
+							emphasis: {
+								shadowBlur: 10,
+								shadowOffsetX: 0,
+								shadowColor: 'rgba(0, 0, 0, 0.5)'
 							}
-            ]
-        };	
+						}
+					}
+				]
+			};	
 			myChart.setOption(option);
 		}
 	</script>

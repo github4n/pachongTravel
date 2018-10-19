@@ -184,12 +184,21 @@ var rideTmoption = {
     series: [
        {
         name: '骑行时长',
-        type: 'bar',
+				type: 'bar',
+				barMaxWidth:150,
         data: ${pd.yJson.yData },
         itemStyle: {
-            normal: {
-                color: '#6FB3E0'
-            }
+					normal: {
+						color: '#6FB3E0',
+						label: {
+							show: true, //开启显示
+							position: 'top', //在上方显示
+							textStyle: { //数值样式
+								color: 'black',
+								fontSize: 16
+							}
+						}
+					}
         }
        }
     ]
@@ -218,12 +227,21 @@ function reloadEcharts(xData,yData){
     series: [
        {
         name: '骑行时长',
-        type: 'bar',
+				type: 'bar',
+				barMaxWidth:150,
         data: yData,
         itemStyle: {
-            normal: {
-                color: '#6FB3E0'
-            }
+					normal: {
+						color: '#6FB3E0',
+						label: {
+							show: true, //开启显示
+							position: 'top', //在上方显示
+							textStyle: { //数值样式
+								color: 'black',
+								fontSize: 16
+							}
+						}
+					}
         }
        }
     ]

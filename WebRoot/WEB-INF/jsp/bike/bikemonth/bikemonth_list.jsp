@@ -255,7 +255,21 @@ function gsearch(){
 						data: [${pd.xJson.historicalAccumulation}, ${pd.xJson.averageRidingTime}],
 						itemStyle: {
 								normal: {
-										color: '#87B87F'
+									color: function(params) {
+										// build a color map as your need.
+										var colorList = [
+											'#31C809','#2341D7'
+										];
+										return colorList[params.dataIndex]
+									},
+									label: {
+										show: true, //开启显示
+										position: 'top', //在上方显示
+										textStyle: { //数值样式
+											color: 'black',
+											fontSize: 16
+										}
+									}
 								}
 						}
 						}
@@ -287,7 +301,21 @@ function gsearch(){
 						data: [${pd.xJson.thisTime}, ${pd.xJson.averageNumber}],
 						itemStyle: {
 								normal: {
-										color: '#6FB3E0'
+									color: function(params) {
+										// build a color map as your need.
+										var colorList = [
+											'#16B8BE','#C86C09'
+										];
+										return colorList[params.dataIndex]
+									},
+									label: {
+										show: true, //开启显示
+										position: 'top', //在上方显示
+										textStyle: { //数值样式
+											color: 'black',
+											fontSize: 16
+										}
+									}
 								}
 						}
 						}
@@ -341,7 +369,21 @@ function gsearch(){
 						data: [yData.averageNumber,xData.averageNumber],
 						itemStyle: {
 								normal: {
-										color: '#87B87F'
+									color: function(params) {
+										// build a color map as your need.
+										var colorList = [
+											'#31C809','#2341D7'
+										];
+										return colorList[params.dataIndex]
+									},
+									label: {
+										show: true, //开启显示
+										position: 'top', //在上方显示
+										textStyle: { //数值样式
+											color: 'black',
+											fontSize: 16
+										}
+									}
 								}
 						}
 						}
@@ -369,7 +411,21 @@ function gsearch(){
 						data: [yData.averageRidingTime, xData.averageRidingTime],
 						itemStyle: {
 								normal: {
-										color: '#6FB3E0'
+									color: function(params) {
+										// build a color map as your need.
+										var colorList = [
+											'#16B8BE','#C86C09'
+										];
+										return colorList[params.dataIndex]
+									},
+									label: {
+										show: true, //开启显示
+										position: 'top', //在上方显示
+										textStyle: { //数值样式
+											color: 'black',
+											fontSize: 16
+										}
+									}
 								}
 						}
 						}

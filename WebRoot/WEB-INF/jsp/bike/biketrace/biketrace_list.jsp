@@ -43,7 +43,7 @@
 			<!-- /section:basics/content.breadcrumbs -->
 			<div class="page-content">
 				<div class="page-content">
-					<form action="bikeridetm/list.do" method="post" name="Form" id="Form">
+					<form action="biketrace/list.do" method="post" name="Form" id="Form">
 
 						<div class="row date-box">
 								<div class="col-xs-6">
@@ -157,6 +157,9 @@
             x: 121.67291404807811, 
             y: 31.14918372801515
         };
+		console.log(${pd.yJson.yData});
+		console.log(${pd.zJson.yyData});
+		console.log(${pd.xJson.xData});
 
         var point = new BMap.Point(startPoint.x, startPoint.y);
         map.centerAndZoom(point, 16);
