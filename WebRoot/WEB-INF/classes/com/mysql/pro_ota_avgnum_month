@@ -1,0 +1,33 @@
+CREATE DEFINER=`root`@`%` PROCEDURE `pro_ota_avgnum_month`()
+BEGIN
+	DECLARE v_id bigint(20);
+	DECLARE v_month varchar(20);
+	DECLARE v_day varchar(20);
+	
+	DECLARE done INT DEFAULT FALSE;
+	DECLARE cur_tourchar_month CURSOR FOR SELECT id,month,day from bigdata_ota_tourchart_month;
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+	
+	OPEN cur_tourchar_month;
+	
+	read_loop: LOOP
+		FETCH  NEXT from cur_tourchar_month INTO v_id,v_month, v_day;
+		IF done THEN
+			LEAVE read_loop;
+		END IF;
+		
+		/* start my operation */
+		
+		/* update avgnum, 7avgnum, 30avgnum */
+		update bigdata_ota_tourchart_month s set avgnum = 
+			(select ub.avgnum from
+			(select sum(t.tournum)/count(1) as avgnum from bigdata_ota_tourchart_month t 
+					where t.spotId = '1' and t.day = v_day and t.month <= v_month)  ub
+			)
+		where s.id = v_id;
+
+		/* end my operation */
+	END LOOP;
+	CLOSE cur_tourchar_month;
+
+END

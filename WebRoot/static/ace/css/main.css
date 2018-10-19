@@ -1,0 +1,306 @@
+.no-skin{
+  background-color: #e9edf5;
+}
+.page-content{
+  min-width: 1100px;
+  background-color: #e9edf5 !important;
+}
+.date-box{
+  margin-top: 20px;
+}
+.breadcrumbs{
+  background-color: #e9edf5;
+  border-bottom: none;
+  padding-top: 15px;
+}
+.breadcrumb > li, .breadcrumb > li.active{
+  color:#000;
+  font-size: 32px;
+  font-weight: bold;
+}
+.main-container:before{
+  position: relative;
+}
+.infobox-container .infobox-content{
+  color:#000;
+  font-size:20px;
+}
+#tab_menu{
+  display:none;
+}
+.infobox{
+  height: 140px;
+  text-align: center;
+  margin-right: 16px;
+  margin-bottom: 16px;
+  border: none;
+  border-radius: 10px;
+  padding: 40px 0 0px 0;
+  cursor: pointer;
+}
+.widget-box{
+  border: none;
+}
+.widget-header-flat{
+  text-align: center;
+  border-bottom: none;
+  padding: 32px 0;
+  background-color: #e9edf5;
+}
+.infobox > .infobox-data{
+  text-align: center;
+  padding-left: 0;
+}
+.infobox > .infobox-data > .infobox-data-number{
+  font-size: 26px;
+  margin-top: 22px;
+}
+.table > thead > tr > th,
+.table > tbody > tr > td{
+  text-align: center;
+}
+
+.widget-header > .widget-title{
+  font-size: 30px;
+  font-weight: bold;
+  color: #000;
+}
+/*模拟checkbox */
+input[type="checkbox"] + label::before,
+input[type="radio"] + label::before {
+    content: "\2713";
+    color:#fff;
+    /* content: "\a0"; 不换行空格 */
+    display: inline-block;
+    vertical-align: baseline;
+    width: 1em;
+    height: 1em;
+    margin-right: .2em;
+    /* border-radius: .2em; */
+    border-radius: 50%;
+    background-color: silver;
+    text-indent: .15em;
+    line-height: 1; /*行高不加单位，子元素将继承数字乘以自身字体尺寸而非父元素行高*/
+}
+
+input[type="checkbox"]:checked + label::before,
+input[type="radio"]:checked + label::before{
+    /* content: "\2713"; */
+    /* background-color: yellowgreen; */
+    /* color:#fff; */
+    background-color:rgba(238,66,0,1);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+}
+
+input[type="checkbox"]:focus + label::before,
+input[type="radio"]:focus + label::before {
+    box-shadow: 0 0 .1em .1em #58a;
+}
+
+input[type="checkbox"]:disabled + label::before,
+input[type="radio"]:disabled + label::before{
+    background-color: gray;
+    box-shadow: none;
+    color: #555;
+}
+/* 入园时间选择 */
+.choose-time{
+  background-color: #fff;
+  width: 100%;
+  height: 170px;
+  line-height: 170px;
+  padding: 0 15px;
+ 
+  border-radius: 8px;
+  cursor: pointer;
+}
+.choose-time label{
+  font-size: 32px; 
+}
+.choose-box{
+  display: inline-block;
+  font-size: 36px;
+  color: #000;
+  text-align: center;
+  margin-right: 20px; 
+}
+
+.choose-date{
+  position: relative;
+  padding: 34px;
+  width: 100%;
+  height: 170px;
+  font-size: 28px;
+  background: #fff;
+}
+.choose-date label{
+  font-size: 24px;
+  margin-right: 15px;
+  margin-bottom: 16px;
+}
+.choose-date .date-picker{
+  font-size: 20px;
+  color:#EE4200;
+  border-color: #ACACAC;
+  width: 218px;
+  text-align: center;
+}
+.btn-search{
+  position: absolute;
+  right:20px;
+  top: 52px;
+  width: 120px;
+  height: 54px;
+  background-color: #EE4200;
+  font-size: 28px;
+  color:#fff;
+  border: none;
+  border-radius: 6px;
+}
+/* @media screen and (max-width:983px){
+  .choose-box{
+    display: inline-block;
+    background-color: #fff;
+    font-size: 28px;
+    color: #000;
+    text-align: center;
+    width: 130px;
+    height: 60px;
+    line-height: 60px;
+    margin: 0 10px 10px 0;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .choose-date{
+    position: relative;
+    padding: 14px;
+    width: 430px;
+    height: 150px;
+    font-size: 20px;
+    background: #fff;
+  }
+  .btn-search{
+    position: absolute;
+    right:20px;
+    top: 52px;
+    width: 72px;
+    height: 36px;
+    background-color: #71a7cd;
+    font-size: 20px;
+    color:#fff;
+    border: none;
+    border-radius: 10px;
+  }
+} */
+ul.person{
+  min-width: 1110px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+}
+li.person-label{
+  padding: 25px 20px;
+  margin:0  0 25px 0;
+  list-style: none;
+  width: 49%;
+  min-width: 550px;
+  height: 300px;
+  background-color: #fff;
+}
+li.person-label .user-photo{
+  float: left;
+  width: 145px;
+  height: 100%;
+  overflow: hidden;
+}
+li.person-label .user-photo h1{
+  font-size: 32px;
+  /* text-align: center; */
+}
+li.person-label .user-data{
+  float: right;
+  width: 364px;
+  text-align: center;
+  height: 100%;
+  overflow: hidden;
+}
+li.person-label .user-data .num{
+  padding: 20px 0;
+  width: 160px;
+  height: 80px;
+  background-color: #b6ccf6;
+}
+li.person-label .user-data  h3{
+  font-size: 20px;
+  color:#fff;
+  margin: 0 auto;
+}
+li.person-label .user-data .user-data-top{
+  width: 100%;
+  padding: 0 10px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+li.person-label .user-data .perc{
+  padding: 20px 0;
+  width: 170px;
+  height: 80px;
+  background-color: #b3f8c5;
+}
+li.person-label .user-photo img{
+  width: 150px;
+}
+li.person-label .user-data ul{
+  margin-left: 0;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+li.person-label .user-data li.user-label{
+  list-style: none;
+  margin-top: 42px;
+  width: 120px;
+  height: 35px;
+  line-height: 35px;
+  border: 1px solid #00aeef;
+  font-size: 16px;
+  color: #00aeef;
+  border-radius: 16px;
+}
+@media screen and (max-width:983px){
+  li.person-label .user-photo h1{
+    font-size: 22px;
+  }
+}
+/* 重写table */
+.table > thead > tr{
+  color: #276AB0;
+  background: #f5f9fd;
+}
+.table-striped > tbody > tr,
+.table-striped > tbody > tr:nth-child(odd){
+  background-color: #fff;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 22px;
+}
+@media screen and (max-width:983px){
+  .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 22px;
+  }
+}

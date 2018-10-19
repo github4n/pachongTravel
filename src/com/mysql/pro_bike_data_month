@@ -1,0 +1,25 @@
+BEGIN
+	#Routine body goes here...
+
+DECLARE _nowdate date DEFAULT NOW();
+DECLARE _endtmp date DEFAULT NOW();
+DECLARE _nextdate date DEFAULT NOW();
+DECLARE _ridenum int(11);
+DECLARE _ridetime double;
+
+set _nowdate = DATE_FORMAT(startmonth,'%Y%m%d');
+set _endtmp = DATE_FORMAT(_endtmp,'%Y%m%d');
+
+WHILE _nowdate<_endtmp
+DO
+
+SET _nextdate = DATE_ADD(_nowdate,INTERVAL 1 MONTH);
+select count(*) into _ridenum from bike_orders t where t.startRentTime/1000 between UNIX_TIMESTAMP(_nowdate) and UNIX_TIMESTAMP(_nextdate);
+select sum((a.endRentTime-a.startRentTime)/1000/60) into _ridetime from bike_orders a where a.startRentTime/1000 between UNIX_TIMESTAMP(_nowdate) and UNIX_TIMESTAMP(_nextdate);
+
+INSERT INTO bigdata_bike_month (ridenum, ridetime, ridemonth, date) VALUES (_ridenum, _ridetime, CONCAT(YEAR(_nowdate),'-'	,MONTH(_nowdate)), _nowdate);
+
+SET _nowdate = _nextdate;
+END WHILE; 
+
+END

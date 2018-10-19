@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TourChartDayMapper">
+	
+	<!--表名 -->
+	<sql id="tableName">
+		BIGDATA_OTA_TOURCHART_DAY
+	</sql>
+	
+	<!-- 字段 -->
+	<sql id="Field">
+		ID,	
+		SPOTNAME,	
+		SPOTID,	
+		TMAREA,	
+		DATE,	
+		TOURNUM,	
+		TOTALNUM
+	</sql>
+	
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{ID},	
+		#{SPOTNAME},	
+		#{SPOTID},	
+		#{TMAREA},	
+		#{DATE},	
+		#{TOURNUM},	
+		#{TOTALNUM},	
+		#{TOURCHARTDAY_ID}tourChartDay
+	</sql>
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into 
+	<include refid="tableName"></include>
+		(
+	<include refid="Field"></include>
+		) values (
+	<include refid="FieldValue"></include>
+		)
+	</insert>
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			TOURCHARTDAY_ID = #{TOURCHARTDAY_ID}
+	</delete>
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set 
+			ID = #{ID},
+			SPOTNAME = #{SPOTNAME},
+			SPOTID = #{SPOTID},
+			TMAREA = #{TMAREA},
+			DATE = #{DATE},
+			TOURNUM = #{TOURNUM},
+			TOTALNUM = #{TOTALNUM},
+		TOURCHARTDAY_ID = TOURCHARTDAY_ID
+		where 
+		TOURCHARTDAY_ID = #{TOURCHARTDAY_ID}
+	</update>
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 
+			TOURCHARTDAY_ID = #{TOURCHARTDAY_ID}
+	</select>
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+			and
+				(
+				<!--	根据需求自己加检索条件
+					字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 or 
+					字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+				-->
+				)
+		</if>
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			TOURCHARTDAY_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+	<select id="tourChartDay" parameterType="page" resultType="pd">
+		<!--select case tmarea-->
+		<!--when '0' then '00'-->
+		<!--when '1' then '01'-->
+		<!--when '2' then '02'-->
+		<!--when '3' then '03'-->
+		<!--when '4' then '04'-->
+		<!--when '5' then '05'-->
+		<!--when '6' then '06'-->
+		<!--when '7' then '07'-->
+		<!--when '8' then '08'-->
+		<!--when '9' then '09'-->
+		<!--when '10' then '10'-->
+		<!--when '11' then '11'-->
+		<!--when '12' then '12'-->
+		<!--when '13' then '13'-->
+		<!--when '14' then '14'-->
+		<!--when '15' then '15'-->
+		<!--when '16' then '16'-->
+		<!--when '17' then '17'-->
+		<!--when '18' then '18'-->
+		<!--when '19' then '19'-->
+		<!--when '20' then '20'-->
+		<!--when '21' then '21'-->
+		<!--when '22' then '22'-->
+		<!--when '23' then '23'-->
+		<!--end as tmareas-->
+		<!--,sum(tournum) as tournum, sum(avgnum) as avgnum  from bigdata_ota_tourchart_day-->
+		<!--where 1=1 and spotId = '1'-->
+
+		<!--<if test="pd.startDate!= null and pd.startDate != ''">&lt;!&ndash; 关键词检索 &ndash;&gt;-->
+			<!--and-->
+			<!--(-->
+			<!--date <![CDATA[ >= ]]> #{pd.startDate}-->
+			<!--)-->
+		<!--</if>-->
+		<!--<if test="pd.endDate!= null and pd.endDate != ''">&lt;!&ndash; 关键词检索 &ndash;&gt;-->
+			<!--and-->
+			<!--(-->
+			<!--date <![CDATA[ <= ]]> #{pd.endDate}-->
+			<!--)-->
+		<!--</if>-->
+		<!--GROUP BY tmareas-->
+		select  date ,sum(tournum) as tournum ,sum(avgnum) avgnum from bigdata_ota_tourchart_day where 1=1
+		<if test="pd.startDate!= null and pd.startDate != ''"><!-- 关键词检索 -->
+		and
+		(
+		date <![CDATA[ >= ]]> #{pd.startDate}
+		)
+		</if>
+		<if test="pd.endDate!= null and pd.endDate != ''"><!-- 关键词检索 -->
+		and
+		(
+		date <![CDATA[ <= ]]> #{pd.endDate}
+		)
+		</if>
+		GROUP BY date
+
+	</select>
+
+
+	<select id="tourChartByDay" parameterType="page" resultType="pd">
+				select  botd.tournum,botd.avgnum,case botd.tmarea
+				when '0' then '00'
+				when '1' then '01'
+				when '2' then '02'
+				when '3' then '03'
+				when '4' then '04'
+				when '5' then '05'
+				when '6' then '06'
+				when '7' then '07'
+				when '8' then '08'
+				when '9' then '09'
+				when '10' then '10'
+				when '11' then '11'
+				when '12' then '12'
+				when '13' then '13'
+				when '14' then '14'
+				when '15' then '15'
+				when '16' then '16'
+				when '17' then '17'
+				when '18' then '18'
+				when '19' then '19'
+				when '20' then '20'
+				when '21' then '21'
+				when '22' then '22'
+				when '23' then '23'
+		 		end as tmareas from bigdata_ota_tourchart_day botd
+		where 1=1 and spotId = '1'
+
+		<if test="pd.dayDate!= null and pd.dayDate != ''">
+		and
+		(
+		date = #{pd.dayDate}
+		)
+		</if>
+
+
+
+
+	</select>
+
+
+	<select id="tourNumDay" parameterType="page" resultType="String">
+		select date from bigdata_ota_tourchart_day
+		where 1=1 and spotId = '1'
+
+		<if test="pd.startDate!= null and pd.startDate != ''"><!-- 关键词检索 -->
+			and
+				(
+				date  <![CDATA[ >= ]]> #{pd.startDate}
+				)
+		</if>
+		<if test="pd.endDate!= null and pd.endDate != ''"><!-- 关键词检索 -->
+			and
+				(
+				date  <![CDATA[ <= ]]> #{pd.endDate}
+				)
+		</if>
+		GROUP BY date
+		ASC LIMIT 1
+	</select>
+
+
+	<select id="tourNumDayl" parameterType="page" resultType="String">
+		select date from bigdata_ota_tourchart_day
+		where 1=1 and spotId = '1'
+
+		<if test="pd.startDate!= null and pd.startDate != ''"><!-- 关键词检索 -->
+			and
+			(
+			date  <![CDATA[ >= ]]> #{pd.startDate}
+			)
+		</if>
+		<if test="pd.endDate!= null and pd.endDate != ''"><!-- 关键词检索 -->
+			and
+			(
+			date  <![CDATA[ <= ]]> #{pd.endDate}
+			)
+		</if>
+		GROUP BY date
+		DESC LIMIT 1;
+	</select>
+	
+
+</mapper>
