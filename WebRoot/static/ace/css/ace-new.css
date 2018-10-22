@@ -6,8 +6,9 @@ body{
 
 /* 顶部栏css */
   .navbar{
-    width: calc(100% - 190px);
-    float: right;
+    /* width: calc(100% - 190px); */
+    margin-left: 190px;
+    /* float: right; */
     /* background-color: #fff; */
     background-color: #000;
   }
@@ -33,7 +34,10 @@ body{
   .ace-nav > li > a > .ace-icon{
     /* color:#5faee3; */
   }
-
+  .main-content-inner {
+    float: none;
+    width: 100%;
+  }
 
   /* 左侧边栏 */
   .no-skin .sidebar{

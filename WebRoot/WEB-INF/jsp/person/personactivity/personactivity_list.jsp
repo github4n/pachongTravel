@@ -118,7 +118,7 @@
 												<tr>
 													<th>订单数</th>
 													<th>用户数</th>
-													<th>占比</th>
+													<th>占比（%）</th>
 												</tr>
 											</thead>
 
@@ -287,7 +287,7 @@ function gsearch(){
             {
 							name:"次数",
 							type : 'category',
-							data : ['1', '2','3', '4', '5次以上'],
+							data : ['1', '2','3', '4', '5次及以上'],
 							axisTick: {
 									alignWithLabel: true
 							}
@@ -295,7 +295,7 @@ function gsearch(){
         ],
         yAxis : [
             {
-							name:"百分比",
+							name:"百分比（%）",
 							type : 'value',
 							data:['0%', '10%','20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'],
 							// data:${pd.yJson.yData},
@@ -303,7 +303,7 @@ function gsearch(){
         ],
         series : [
             {
-							name:'百分比',
+							name:'百分比（%）',
 							type:'bar',
 							barWidth: '60%',
 							data:${pd.yJson.yData },
@@ -351,7 +351,7 @@ function gsearch(){
 						{
 							name:"次数",
 							type : 'category',
-							data : ['1', '2','3', '4', '5次以上'],
+							data : ['1', '2','3', '4', '5次及以上'],
 							axisTick: {
 									alignWithLabel: true
 							}
@@ -359,7 +359,7 @@ function gsearch(){
 				],
 				yAxis : [
 						{
-							name:"百分比",
+							name:"百分比（%）",
 							type : 'value',
 							data:['0%', '10%','20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'],
 							// data:${pd.yJson.yData},
@@ -367,7 +367,7 @@ function gsearch(){
 				],
 				series : [
 						{
-							name:'百分比',
+							name:'百分比（%）',
 							type:'bar',
 							barWidth: '60%',
 							data:yData,

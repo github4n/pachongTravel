@@ -177,7 +177,7 @@ laydate.render({
 				data: ${pd.xJson.xData },
 			},
 			yAxis: {
-				name:'百分比',
+				name:'人流百分比',
 			},
 			series: [
 				{

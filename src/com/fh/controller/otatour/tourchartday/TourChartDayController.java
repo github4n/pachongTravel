@@ -158,15 +158,17 @@ public class TourChartDayController extends BaseController {
         }
         // Map<String, Object> xymap = updateXList(map);
         for (Map.Entry<String, Object> entry : map.entrySet()) {
-
-            xData.add(entry.getKey());
+            String str = entry.getKey().toString();
+            String strVal = str.substring(5, str.length());
+            xData.add(strVal);
             yData.add(entry.getValue());
 
         }
         //Map<String, Object> yymap = updateXList(maps);
         for (Map.Entry<String, Object> entry : maps.entrySet()) {
-
-            xxData.add(entry.getKey());
+            String str = entry.getKey().toString();
+            String strVal = str.substring(5, str.length());
+            xxData.add(strVal);
             yyData.add(entry.getValue());
 
         }

@@ -158,14 +158,16 @@ public class TourChartMonthController extends BaseController {
             maps.put(pgdt.get("date").toString(), pgdt.get("avgnum"));
         }
         for (Map.Entry<String, Object> entry : map.entrySet()) {
-
-            xData.add(entry.getKey());
+            String str = entry.getKey().toString();
+            String strVal = str.substring(5, str.length());
+            xData.add(strVal);
             yData.add(entry.getValue());
 
         }
         for (Map.Entry<String, Object> entry : maps.entrySet()) {
-
-            xxData.add(entry.getKey());
+            String str = entry.getKey().toString();
+            String strVal = str.substring(5, str.length());
+            xxData.add(strVal);
             yyData.add(entry.getValue());
 
         }

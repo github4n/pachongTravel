@@ -264,7 +264,7 @@ laydate.render({
 				
 				xAxis : [
 						{
-								name:'年龄',
+								name:'年龄段',
 								type : 'category',
 								data : ${ageName},
 								axisTick: {
@@ -327,7 +327,7 @@ laydate.render({
 			    // },
 					xAxis : [
 						{
-							name:"年龄",
+							name:"年龄段",
 							type : 'category',
 							axisTick : {show: false},
 							data : ${nameList}
@@ -476,7 +476,7 @@ laydate.render({
 			    // },
 			    xAxis : [
 			        {
-									name:'年龄',
+									name:'年龄段',
 			            type : 'category',
 			            data : xData.ageName,
 			            axisTick: {
@@ -534,7 +534,7 @@ laydate.render({
 			    // },
 					xAxis : [
 						{
-							name:"年龄",
+							name:"年龄段",
 							type : 'category',
 							axisTick : {show: false},
 							data : xData.nameList

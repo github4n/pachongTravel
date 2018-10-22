@@ -175,7 +175,7 @@ var ridetmChart = echarts.init(document.getElementById('timecntChart'));
 var rideTmoption = {
     tooltip: {},
     xAxis: {
-			name:'时长',
+			name:'时长（min）',
 			data: ${pd.xJson.xData },
     },
     yAxis: {
@@ -218,7 +218,7 @@ function reloadEcharts(xData,yData){
 	var rideTmoption = {
     tooltip: {},
     xAxis: {
-			name:'时长',
+			name:'时长（min）',
 			data: xData,
     },
     yAxis: {

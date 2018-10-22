@@ -199,10 +199,10 @@
 					data: $('#Form').serialize(), //提交的数据
 					success: function (result) {
 						console.log(result);       //打印服务端返回的数据(调试用)
-						let xData =  result.data.map(function(item) {return item['date']}),
+						let xData =  result.data.map(function(item) {return item['date'].substring(5)}),//截取掉字符串里的“2018-”
 						yData = result.data.map(function(item) {return item['tournum']}),
 						yyData = result.data.map(function(item) {return item['avgnum']});
-						
+						console.log(xData);
 						reloadEcharts(xData,yData,yyData);	
 					},
 					error : function(error) {
