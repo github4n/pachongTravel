@@ -112,8 +112,8 @@ public class BikeTraceController extends BaseController {
 			start_date = startTime;
 			end_date = endTime;
 		}else {
-			start_date=currentDay;
-			end_date=currentDay;
+			start_date="2018-10-04";
+			end_date="2018-10-04";
 		}
 		pd.put("endDate", end_date);
 		pd.put("startDate", start_date);
@@ -131,8 +131,8 @@ public class BikeTraceController extends BaseController {
 		Iterator tourChart_itr = varList.iterator();
 		while (tourChart_itr.hasNext()) {
 			PageData pgdt = (PageData) tourChart_itr.next();
-			map.put(pgdt.get("fromView").toString(), pgdt.get("renttime"));
-			maps.put(pgdt.get("toView").toString(), pgdt.get("renttime"));
+			map.put(pgdt.get("fromView").toString(), pgdt.get("cnt"));
+			maps.put(pgdt.get("toView").toString(), pgdt.get("cnt"));
 		}
 		for (Map.Entry<String, Object> entry : map.entrySet()) {
 			xData.add(entry.getKey());
@@ -158,6 +158,52 @@ public class BikeTraceController extends BaseController {
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;
 	}
+
+
+
+
+
+	@RequestMapping(value = "/getCyclingAnalysis")
+	@ResponseBody
+	public JSONObject getCyclingAnalysis(Page page, String startTime,String endTime,String type) throws Exception {
+
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		String start_date ="";
+		String end_date = "";
+		Calendar now = Calendar.getInstance();
+		SimpleDateFormat smf = new SimpleDateFormat("yyyy-MM-dd");
+		String currentDay = smf.format(now.getTime());
+		JSONObject jt = new JSONObject();
+		OtaUtil util = new OtaUtil();
+		if(null != type && !"".equals(type)){
+			//如果选择按钮，则返回固定的起始时间和结束时间
+			//end_date = util.getEndDateS(type);
+			//start_date = util.getStartDateS(type);
+			end_date="2018-10-04";
+			start_date="2018-10-04";
+		}else if(null != startTime && !"".equals(startTime) && null != endTime && !"".equals(endTime)){
+			//如果选择了日期选择框，则返回日期框中选择的起始时间和结束时间
+			start_date = startTime;
+			end_date = endTime;
+		}else {
+			start_date=currentDay;
+			end_date=currentDay;
+		}
+		pd.put("endDate", end_date);
+		pd.put("startDate", start_date);
+		page.setPd(pd);
+		List<PageData> varList = biketraceService.cyclingTrackList(page);
+		jt.put("data",varList);
+		return jt;
+
+	}
+
+
+
+
+
+
 	
 	/**去新增页面
 	 * @param

@@ -291,19 +291,19 @@
 				
 				
     // });
-		laydate.render({
-			elem: '#test1'//指定元素
-			,trigger: 'click' //采用click弹出"
-			,value: '2018-06-01' 
-			,min: '2018-04-01'
-			,max: '2018-06-30'
-			,done: function(value, date, endDate){
-    		console.log(value); //得到日期生成的值，如：2017-08-18
-				$("#dayDate").val(value);
-				$("#timeTitle").text(value);
-				getdayDate();
-  		}
-		});
+	laydate.render({
+		elem: '#test1'//指定元素
+		,trigger: 'click' //采用click弹出"
+		,value: '2018-06-01' 
+		,min: '2018-04-01'
+		,max: '2018-06-30'
+		,done: function(value, date, endDate){
+		console.log(value); //得到日期生成的值，如：2017-08-18
+			$("#dayDate").val(value);
+			$("#timeTitle").text(value);
+			getdayDate();
+	}
+	});
 		
 		
 

@@ -89,15 +89,62 @@
 								<!-- PAGE CONTENT BEGINS -->
 								<div class="row">
 
-									<div class="col-sm-12">
-										<div class="widget-box">
-											<div class="widget-header widget-header-flat">
+									<div class="col-sm-9">
+										<!-- <div class="widget-box"> -->
+											<!-- <div class="widget-header widget-header-flat">
 												<h4 class="widget-title smaller">骑行轨迹分析</h4>
-											</div>
+											</div> -->
 
-											<div class="widget-body">
+											<!-- <div class="widget-body"> -->
 												<div id="main" style="width: 100%;height:500px;margin:0 auto"></div>
-											</div>
+											<!-- </div> -->
+										<!-- </div> -->
+									</div>
+									<div class="col-sm-3">
+										<div class="ranking-list">
+											<h4>热门景点TOP5排行</h4>
+											<ul>
+												<li>
+													<div class="num">
+														1
+													</div>
+													<div class="name">
+														薰衣草园
+													</div>
+												</li>
+												<li>
+													<div class="num">
+														2
+													</div>
+													<div class="name">
+														观景草坪
+													</div>
+												</li>
+												<li>
+													<div class="num">
+														3
+													</div>
+													<div class="name">
+														玫瑰园
+													</div>
+												</li>
+												<li>
+													<div class="num">
+														4
+													</div>
+													<div class="name">
+														香草园
+													</div>
+												</li>
+												<li>
+													<div class="num">
+														5
+													</div>
+													<div class="name">
+														园艺模型
+													</div>
+												</li>
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -155,7 +202,7 @@
 
         var startPoint = {
             x: 121.67291404807811, 
-            y: 31.14918372801515
+            y: 31.14718372801515
         };
 		console.log(${pd.yJson});
 		console.log(${pd.zJson});
@@ -257,8 +304,8 @@
                             [{name:'邻家烧烤'}, {name:'薰衣草园',value:60}],
                             [{name:'迪艇皮划艇'}, {name:'邻家烧烤',value:50}],
                             [{name:'邻家烧烤'}, {name:'迪艇皮划艇',value:40}],
-                            [{name:'薰衣草园'}, {name:'香草园广场',value:10}],
-                           [{name:'薰衣草园'}, {name:'邻家农庄',value:90}]
+                            [{name:'薰衣草园'}, {name:'香草园广场',value:30}],
+                           [{name:'薰衣草园'}, {name:'邻家农庄',value:20}]
                         ]
                     },
                     markPoint : {
@@ -276,22 +323,15 @@
                             }
                         },
                         data : [
-						{name:'香草园广场',value:90},
-						{name:'香草园入口',value:90},
-						{name:'香草园出口',value:90},
-						{name:'薰衣草园',value:90},
-						{name:'模纹园艺',value:90},
-						{name:'玫瑰园',value:90},
-						{name:'景观草坪',value:90},
-						{name:'生态园广场',value:90},
-						{name:'光明生态园出入口',value:90},
-						{name:'邻家大草坪',value:90},
-						{name:'骑行之家',value:90},
-						{name:'邻家农庄',value:90},
-						{name:'邻家烧烤',value:90},
-						{name:'迪艇皮划艇',value:90},
-						{name:'达拉探索营地',value:90},
-						{name:'邻家露营地',value:90}
+							{name:'迪艇皮划艇',value:90},
+							{name:'景观草坪',value:80},
+							{name:'邻家农庄',value:70},
+							{name:'薰衣草园',value:60},
+							{name:'邻家烧烤',value:50},
+							{name:'迪艇皮划艇',value:40},
+							{name:'香草园广场',value:30},
+							{name:'邻家农庄',value:20}
+						
                         ]
                     }
                     
@@ -308,133 +348,12 @@
     }
 );
 })();
-// var myChart = echarts.init(document.getElementById('echart'));
-// var option = {
-// 	color: ['gold','aqua','lime'],
-//     title : {
-//         text: '模拟迁徙',
-//         subtext:'数据纯属虚构',
-//         x:'right'
-//     },
-//     tooltip : {
-//         trigger: 'item',
-//         formatter: function (v) {
-//             return v[1].replace(':', ' > ');
-//         }
-//     },
-//     legend: {
-//         orient: 'vertical',
-//         x:'left',
-//         data:['薰衣草园', '生态园广场'],
-//         selectedMode: 'single',
-//         selected:{
-//             '生态园广场' : false
-//         }
-//     },
-//     toolbox: {
-//         show : true,
-//         orient : 'vertical',
-//         x: 'right',
-//         y: 'center',
-//         feature : {
-//             mark : {show: true},
-//             dataView : {show: true, readOnly: false},
-//             restore : {show: true},
-//             saveAsImage : {show: true}
-//         }
-//     },
-//     dataRange: {
-//         min : 0,
-//         max : 100,
-//         y: '60%',
-//         calculable : true,
-//         color: ['#ff3333', 'orange', 'yellow','lime','aqua']
-//     },
-//     series : [
-//         {
-//             name:'薰衣草园',
-//             type:'map',
-//             mapType: 'none',
-//             data:[],
-//             geoCoord: {
-//                 '薰衣草园': [121.670582,31.143744],
-//                 '邻家农庄': [121.67119,31.148966],
-//               '迪艇皮划艇':[121.66516,31.149903],
-//               '香草园入口':[121.6070058,31.144765],
-//               '邻家烧烤':[121.664753,31.148645],
-//               '香草园广场':[121.669708,31.1451],
-//               '景观草坪':[121.670008,31.14166]
-//             },
-
-//             markLine : {
-//                 smooth:true,
-//                 effect : {
-//                     show: true,
-//                     scaleSize: 1,
-//                     period: 30,
-//                     color: '#fff',
-//                     shadowBlur: 10
-//                 },
-//                 itemStyle : {
-//                     normal: {
-//                         borderWidth:1,
-//                         lineStyle: {
-//                             type: 'solid',
-//                             shadowBlur: 10
-//                         }
-//                     }
-//                 },
-//                 data : [
-//                     [{name:'薰衣草园'}, {name:'迪艇皮划艇',value:90}],
-//                     [{name:'薰衣草园'}, {name:'景观草坪',value:80}],
-//                     [{name:'景观草坪'}, {name:'邻家农庄',value:70}],
-//                     [{name:'邻家烧烤'}, {name:'薰衣草园',value:60}],
-//                     [{name:'迪艇皮划艇'}, {name:'邻家烧烤',value:50}],
-//                     [{name:'邻家烧烤'}, {name:'迪艇皮划艇',value:40}],
-//                     [{name:'薰衣草园'}, {name:'香草园广场',value:10}],
-//                    [{name:'薰衣草园'}, {name:'邻家农庄',value:90}]
-//                 ]
-//             },
-//             markPoint : {
-//                 symbol:'emptyCircle',
-//                 symbolSize : function (v){
-//                     return 10 + v/10
-//                 },
-//                 effect : {
-//                     show: true,
-//                     shadowBlur : 0
-//                 },
-//                 itemStyle:{
-//                     normal:{
-//                         label:{show:false}
-//                     }
-//                 },
-//                 data : [
-//                     {name:'薰衣草园',value:90},
-//                     {name:'迪艇皮划艇',value:80},
-//                     {name:'香草园入口',value:70},
-//                     {name:'邻家农庄',value:60},
-//                     {name:'邻家烧烤',value:50},
-//                     {name:'香草园广场',value:40},
-//                   {name:'景观草坪',value:30}
-//                 ]
-//             }
-            
-//         },
-      
-       
-        
-//     ]
-//             };
-// myChart.setOption(option);
-
-
-		$('.choose-box').click(function(event) {
-			var event=event||e;
-			console.log(event.currentTarget.dataset.index);
-			$('#insertData').val(event.currentTarget.dataset.index);
-			$("#Form").submit();
-		})
+	$('.choose-box').click(function(event) {
+		var event=event||e;
+		console.log(event.currentTarget.dataset.index);
+		$('#insertData').val(event.currentTarget.dataset.index);
+		$("#Form").submit();
+	})
     function gsearch(){
         $("#Form").submit();
     }

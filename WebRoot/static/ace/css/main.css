@@ -1,9 +1,90 @@
+body{
+  margin:0;
+  padding: 0;
+}
 .no-skin{
   background-color: #e9edf5;
+}
+ul,li{
+		
+  list-style: none;
 }
 .page-content{
   min-width: 1100px;
   background-color: #e9edf5 !important;
+}
+/* 骑行轨迹分析——排行榜 */
+.page-content .ranking-list{
+  height:500px;
+  background-color: #fff;
+  padding: 40px 20px;
+}
+.page-content .ranking-list h4{
+  font-size: 28px;
+  color:#EE4200;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.page-content .ranking-list ul{
+  margin-top: 20px;
+  margin-left: 0;
+  margin-bottom: 10px;
+}
+.page-content .ranking-list ul li{
+  margin-bottom: 10px;
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+}
+.page-content .ranking-list ul li div{
+  display: inline-block;
+  vertical-align: top;
+  text-align: center
+}
+.page-content .ranking-list ul li div:first-child{
+  background-color: #000000;
+  width: 10%;
+  font-size: 26px;
+  margin-right: 20px;
+}
+.page-content .ranking-list ul li:nth-child(1) div:first-child{
+  color: #F28B16;
+}
+.page-content .ranking-list ul li:nth-child(2) div:first-child{
+  color: #71E62F;
+}
+.page-content .ranking-list ul li:nth-child(3) div:first-child{
+  color: #14D48C;
+}
+.page-content .ranking-list ul li:nth-child(4) div:first-child{
+  color: #16C2F2;
+}
+.page-content .ranking-list ul li:nth-child(5) div:first-child{
+  color: #63AFFF;
+}
+.page-content .ranking-list ul li div:last-child{
+  font-size: 20px;
+  color: #fff;
+}
+.page-content .ranking-list ul li:nth-child(1) div:last-child{
+  background-color: #F28B16;
+  width: 78%;
+}
+.page-content .ranking-list ul li:nth-child(2) div:last-child{
+  background-color: #71E62F;
+  width: 70%;
+}
+.page-content .ranking-list ul li:nth-child(3) div:last-child{
+  background-color: #14D48C;
+  width: 62%;
+}
+.page-content .ranking-list ul li:nth-child(4) div:last-child{
+  background-color: #16C2F2;
+  width: 54%;
+}
+.page-content .ranking-list ul li:nth-child(5) div:last-child{
+  background-color: #63AFFF;
+  width: 46%;
 }
 .date-box{
   margin-top: 20px;
@@ -219,10 +300,13 @@ li.person-label .user-photo{
   width: 145px;
   height: 100%;
   overflow: hidden;
+  text-align: center;
 }
 li.person-label .user-photo h1{
-  font-size: 32px;
-  /* text-align: center; */
+  /* font-size: 32px; */
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 60px;
 }
 li.person-label .user-data{
   float: right;
@@ -257,7 +341,8 @@ li.person-label .user-data .perc{
   background-color: #b3f8c5;
 }
 li.person-label .user-photo img{
-  width: 150px;
+  /* width: 150px; */
+  width: 120px;
 }
 li.person-label .user-data ul{
   margin-left: 0;
@@ -270,13 +355,30 @@ li.person-label .user-data ul{
 li.person-label .user-data li.user-label{
   list-style: none;
   margin-top: 42px;
-  width: 120px;
+  /* width: 120px; */
+  padding: 0 30px;
   height: 35px;
   line-height: 35px;
-  border: 1px solid #00aeef;
   font-size: 16px;
   color: #00aeef;
+  border: 1px solid #00aeef;
   border-radius: 16px;
+}
+li.person-label .user-data li.user-label:nth-child(2){
+  color: #16B8BE;
+  border-color: #16B8BE;
+}
+li.person-label .user-data li.user-label:nth-child(3){
+  color: #FBAF5D;
+  border-color: #FBAF5D;
+}
+li.person-label .user-data li.user-label:nth-child(4){
+  color: #7DA7D9;
+  border-color: #7DA7D9;
+}
+li.person-label .user-data li.user-label:nth-child(5){
+  color: #C4423B;
+  border-color: #C4423B;
 }
 @media screen and (max-width:983px){
   li.person-label .user-photo h1{
