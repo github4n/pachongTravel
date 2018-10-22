@@ -157,9 +157,9 @@
             x: 121.67291404807811, 
             y: 31.14918372801515
         };
-		console.log(${pd.yJson.yData});
-		console.log(${pd.zJson.yyData});
-		console.log(${pd.xJson.xData});
+		console.log(${pd.yJson});
+		console.log(${pd.zJson});
+		console.log(${pd.xJson});
 
         var point = new BMap.Point(startPoint.x, startPoint.y);
         map.centerAndZoom(point, 16);
@@ -243,7 +243,7 @@
                         },
                         itemStyle : {
                             normal: {
-                                borderWidth:1,
+                                borderWidth:2,
                                 lineStyle: {
                                     type: 'solid',
                                     shadowBlur: 10
@@ -264,7 +264,7 @@
                     markPoint : {
                         symbol:'emptyCircle',
                         symbolSize : function (v){
-                            return 10 + v/10
+                            return 0 + v/10
                         },
                         effect : {
                             show: true,

@@ -196,7 +196,7 @@
 					data: $('#Form').serialize(), //提交的数据
 					success: function (result) {
 						console.log(result);       //打印服务端返回的数据(调试用)
-						let xData =  result.data.map(function(item) {return item['month']}),
+						let xData =  result.data.map(function(item) {return item['month'].substring(5)}),
 						yData = result.data.map(function(item) {return item['tournum']}),
 						yyData = result.data.map(function(item) {return item['avgnum']});
 						

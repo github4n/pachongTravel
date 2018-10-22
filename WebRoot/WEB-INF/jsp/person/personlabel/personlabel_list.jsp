@@ -74,7 +74,99 @@
 								</div>
 							
 							<ul class="person">
-								<li class="person-label">
+									<li class="person-label">
+											<section class="user-photo">
+												<h1>优质游客类群</h1>
+												<img src="static/images/user.png" alt="">
+											</section>
+											<section class="user-data">
+													<div class="user-data-top" id="male">
+														<div class="num">
+															<h3>用户数</h3>
+		
+															<c:choose>
+																<c:when test="${hqmg.userNumber !=null}">
+																	<h3>${hqmg.userNumber} </h3>
+																</c:when>
+																<c:otherwise>
+																	<h3>0</h3>
+																</c:otherwise>
+															</c:choose>
+														</div>
+														<div class="perc">
+															<h3>占比</h3>
+		
+															<c:choose>
+																<c:when test="${hqmg.proportion !=null}">
+																	<h3>${hqmg.proportion} %</h3>
+																</c:when>
+																<c:otherwise>
+																	<h3>0.00% </h3>
+																</c:otherwise>
+															</c:choose>
+														</div>
+													</div>
+													<ul>
+														
+														<li class="user-label">
+															上海
+														</li>
+														
+														<li class="user-label">
+															消费指数-高
+														</li>
+		
+													</ul>
+											</section>
+										</li>
+										<li class="person-label">
+												<section class="user-photo">
+													<h1>白领类群</h1>
+													<img src="static/images/user.png" alt="">
+												</section>
+												<section class="user-data">
+														<div class="user-data-top" id="male">
+															<div class="num">
+																<h3>用户数</h3>
+			
+																<c:choose>
+																	<c:when test="${hqmg.userNumber !=null}">
+																		<h3>${hqmg.userNumber} </h3>
+																	</c:when>
+																	<c:otherwise>
+																		<h3>0</h3>
+																	</c:otherwise>
+																</c:choose>
+															</div>
+															<div class="perc">
+																<h3>占比</h3>
+			
+																<c:choose>
+																	<c:when test="${hqmg.proportion !=null}">
+																		<h3>${hqmg.proportion} %</h3>
+																	</c:when>
+																	<c:otherwise>
+																		<h3>0.00% </h3>
+																	</c:otherwise>
+																</c:choose>
+															</div>
+														</div>
+														<ul>
+															<li class="user-label">
+																20-35岁
+															</li>
+															<li class="user-label">
+																上海
+															</li>
+															
+															<li class="user-label">
+																消费指标-中，高
+															</li>
+			
+														</ul>
+												</section>
+											</li>
+								<!-- <li class="person-label">
 									<section class="user-photo">
 										<h1>男性游客类群</h1>
 										<img src="static/images/user.png" alt="">
@@ -125,9 +217,9 @@
 
 											</ul>
 									</section>
-								</li>
+								</li> -->
 								
-								<li class="person-label">
+								<!-- <li class="person-label">
 									<section class="user-photo">
 										<h1>女性游客类群</h1>
 										<img src="static/images/user.png" alt="">
@@ -178,7 +270,7 @@
 
 											</ul>
 									</section>
-								</li>
+								</li> -->
 
 								<li class="person-label">
 									<section class="user-photo">
@@ -220,17 +312,20 @@
 													有小孩
 												</li>
 												<li class="user-label">
-													25-50岁
+													上海
 												</li>
 												<li class="user-label">
-													男/女
+													25-40岁
+												</li>
+												<li class="user-label">
+													消费指标-中.高
 												</li>
 
 											</ul>
 									</section>
 								</li>
 
-								<li class="person-label">
+								<!-- <li class="person-label">
 									<section class="user-photo">
 										<h1>中年游客类群</h1>
 										<img src="static/images/user.png" alt="">
@@ -278,7 +373,7 @@
 
 										</ul>
 									</section>
-								</li>
+								</li> -->
 
 								<li class="person-label">
 								<section class="user-photo">
@@ -314,17 +409,12 @@
 									</div>
 									<ul>
 										<li class="user-label">
-											已婚
+											上海
 										</li>
 										<li class="user-label">
-											60岁以上
+											50-70岁
 										</li>
-										<li class="user-label">
-											有小孩
-										</li>
-										<li class="user-label">
-											男/女
-										</li>
+										
 
 									</ul>
 								</section>
