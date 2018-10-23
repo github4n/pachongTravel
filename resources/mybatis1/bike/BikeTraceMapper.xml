@@ -74,6 +74,31 @@
 	<!-- 列表 -->
 	<select id="cyclingTrackList" parameterType="page" resultType="pd">
 
+		select CONCAT('[{name:',"'",t.fromView,"'",'}, {name:',"'", t.toView,"'",',value:', count(1), '}]') as fromView, 
+		t.toView, count(1) as cnt , 
+		DATE(from_unixtime(t.renttime/1000, '%Y-%m-%d')) as renttime from bigdata_bike_viewtrace t
+		where 1=1
+		and
+		fromView is not null
+		<if test="pd.startDate!= null and pd.startDate != ''"><!-- 关键词检索 -->
+			and
+			(
+			date(from_unixtime(t.renttime/1000, '%Y-%m-%d')) <![CDATA[ >= ]]> #{pd.startDate}
+			)
+		</if>
+		<if test="pd.endDate!= null and pd.endDate != ''"><!-- 关键词检索 -->
+			and
+			(
+			date(from_unixtime(t.renttime/1000, '%Y-%m-%d')) <![CDATA[ <= ]]> #{pd.endDate}
+			)
+		</if>
+		group by t.fromView, t.toView,DATE(from_unixtime(t.renttime/1000, '%Y-%m-%d'));
+
+	</select>
+	
+	<!-- 列表 -->
+	<select id="cyclingTrackList2" parameterType="page" resultType="pd">
+
 		select t.fromView, t.toView, count(1) as cnt , DATE(from_unixtime(t.renttime/1000, '%Y-%m-%d')) as renttime from bigdata_bike_viewtrace t
 		where 1=1
 		and

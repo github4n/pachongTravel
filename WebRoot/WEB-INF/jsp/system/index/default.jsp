@@ -136,6 +136,20 @@ setTimeout("top.hangge()",500);
 									</ul>
 								</div>
 								<div class="bottom-content">
+									<h1>购票/验票</h1>
+									<ul>
+										<li>
+											<span>系统用户:</span>
+											<span style="color:rgba(252,141,54,1);">100</span>
+										</li>
+										<li>
+											<span>系统会员:</span>
+											<span style="color:rgba(54,55,252,1);">150</span>
+										</li>
+										
+									</ul>
+								</div>
+								<div class="bottom-content">
 									<h1>用户概览</h1>
 									<ul>
 										<li>
