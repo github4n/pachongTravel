@@ -4,11 +4,16 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
+
+import net.sf.json.JSONObject;
+
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,10 +21,12 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.util.AppUtil;
 import com.fh.util.ObjectExcelView;
+import com.fh.util.OtaUtil;
 import com.fh.util.PageData;
 import com.fh.util.Jurisdiction;
 import com.fh.util.Tools;
@@ -86,6 +93,45 @@ public class BikeParksController extends BaseController {
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
+	}
+	
+	
+	@RequestMapping(value = "/getPersonNum")
+	@ResponseBody
+	public JSONObject getPersonNum(Page page, String startTime,String endTime,String type) throws Exception {
+
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		String start_date ="";
+		String end_date = "";
+		Calendar now = Calendar.getInstance();
+		SimpleDateFormat smf = new SimpleDateFormat("yyyy-MM-dd");
+		String currentDay = smf.format(now.getTime());
+		JSONObject jt = new JSONObject();
+        Map<String,Object> map= new HashMap<String,Object>();
+		OtaUtil util = new OtaUtil();
+		if(null != type && !"".equals(type)){
+			//如果选择按钮，则返回固定的起始时间和结束时间
+			end_date = util.getEndDateS(type);
+			start_date = util.getStartDateS(type);
+		}else if(null != startTime && !"".equals(startTime) && null != endTime && !"".equals(endTime)){
+			//如果选择了日期选择框，则返回日期框中选择的起始时间和结束时间
+			start_date = startTime;
+			end_date = endTime;
+		}else {
+			start_date=currentDay;
+			end_date=currentDay;
+		}
+		pd.put("endDate", end_date);
+		pd.put("startDate", start_date);
+		page.setPd(pd);
+
+		//List<PageData> varList = touragentService.tourAgentChart(page);
+        List<PageData> personNum = bikeparksService.getPersonNum(page);//按时间查询
+        map.put("personNum",personNum);
+        jt.put("data",map);
+		return jt;
+
 	}
 	
 	/**列表

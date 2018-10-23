@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PersonActivityMapper">
+
+
+
+	<select id="listUserTotal" parameterType="page" resultType="int">
+
+		select count(1) as listUserTotal from bigdata_ota_person_trading_center
+		where 1=1
+		<if test="pd.startDate!= null and pd.startDate != ''">
+			and firsttime <![CDATA[ >= ]]> #{pd.startDate}
+		</if>
+		<if test="pd.startDate!= null and pd.startDate != ''">
+			and  firsttime<![CDATA[ <= ]]> #{pd.endDate}
+		</if>
+		and effective=2
+
+	</select>
+	
+	<select id="listNewUser" parameterType="page" resultType="int">
+		select    count(1) as listNewUser
+		from bigdata_ota_person_trading_center
+		where 1=1
+		<if test="pd.startDate!= null and pd.startDate != ''">
+			and firsttime <![CDATA[ >= ]]> #{pd.startDate}
+		</if>
+		<if test="pd.startDate!= null and pd.startDate != ''">
+			and  firsttime<![CDATA[ <= ]]> #{pd.endDate}
+		</if>
+		 and effective=2 and ordertotal=1
+		GROUP BY ordertotal
+	</select>
+
+	<select id="listActivity" parameterType="page" resultType="pd">
+
+		SELECT ordertotal,count(1) as frequency,sum(tickettotal)/count(1)as percentage
+		from bigdata_ota_person_trading_center a
+		where 1=1
+		<if test="pd.startDate!= null and pd.startDate != ''">
+			and firsttime <![CDATA[ >= ]]> #{pd.startDate}
+		</if>
+		<if test="pd.startDate!= null and pd.startDate != ''">
+			and  firsttime<![CDATA[ <= ]]> #{pd.endDate}
+		</if>
+		 and effective=2
+		GROUP BY ordertotal
+
+	</select>
+
+
+
+</mapper>

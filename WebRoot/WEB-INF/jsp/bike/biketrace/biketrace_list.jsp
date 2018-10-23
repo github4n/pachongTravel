@@ -16,6 +16,9 @@
 	<link rel="stylesheet" href="static/ace/css/chosen.css" />
 	<!-- jsp文件头和头部 -->
 	<%@ include file="../../system/index/top.jsp"%>
+	<!-- 百度echarts -->
+	<script type="text/javascript" src="static/ace/js/jquery.js"></script>
+	<script src="plugins/echarts/echarts.min.js"></script>
 	<!-- 日期框 -->
 	<script src="static/laydate/laydate.js"></script>
 	<!-- bootstrap & fontawesome -->
@@ -43,114 +46,105 @@
 			<!-- /section:basics/content.breadcrumbs -->
 			<div class="page-content">
 				<div class="page-content">
-					<form action="biketrace/list.do" method="post" name="Form" id="Form">
-
-						<div class="row date-box">
-								<div class="col-xs-6">
-									<div class="form-group choose-time">
-										<div class="choose-box" data-index="0">
-											<input id="checkbox1" type="radio" name="time" checked="checked">
-											<label for="checkbox1">今日</label>
-										</div>
-										<div class="choose-box" data-index="1">
-											<input id="checkbox1" type="radio" name="time">
-											<label for="checkbox1">最近7天</label>
-										</div>
-										<div class="choose-box" data-index="2">
-											<input id="checkbox1" type="radio" name="time">
-											<label for="checkbox1">最近30天</label>
-										</div>
-										
-										<input type="hidden" id="insertData" name="type" value="">
-										
+					<div class="row date-box">
+							<div class="col-xs-6">
+								<div class="form-group choose-time">
+									<div class="choose-box" data-index="1">
+										<input id="checkbox1" type="radio" name="time" checked="checked">
+										<label for="checkbox1">今日</label>
+									</div>
+									<div class="choose-box" data-index="2">
+										<input id="checkbox2" type="radio" name="time">
+										<label for="checkbox2">最近7天</label>
+									</div>
+									<div class="choose-box" data-index="3">
+										<input id="checkbox3" type="radio" name="time">
+										<label for="checkbox3">最近30天</label>
 									</div>
 								</div>
-								<div class="col-xs-6">
-									<div class="form-group choose-date">
-										<label for="startDate">起始日期</label>
-										<input class="span10 date-picker" name="startTime" id="startDate"  value="${pd.startDate}" type="text"  readonly="readonly"  placeholder="开始日期"/>
-										<input type="hidden" id="dtp_input_startDate" value="" />
-										<br>
-										<label for="endDate">结束日期</label>
-										<input class="span10 date-picker" name="endTime" id="endDate"  value="${pd.endDate}" type="text"  readonly="readonly"  placeholder="结束日期"/>
-										<input type="hidden" id="dtp_input_endDate" value="" />
-										<button class="btn-search" onclick="gsearch();">
-											查询
-										</button>
-									</div>
-									
-									
+							</div>
+							<div class="col-xs-6">
+								<div class="form-group choose-date">
+									<label for="startDate">起始日期</label>
+									<input class="span10 date-picker" name="startTime" id="startDate"  value="" type="text" readonly="readonly"  placeholder="开始日期"/>
+									<br>
+									<label for="endDate">结束日期</label>
+									<input class="span10 date-picker" name="endTime" id="endDate"  value="" type="text" readonly="readonly"  placeholder="结束日期"/>
+									<button class="btn-search" onclick="toSearch()">
+										查询
+									</button>
 								</div>
 								
+								
 							</div>
+							
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<!-- PAGE CONTENT BEGINS -->
+							<div class="row">
 
-						<div class="row">
-							<div class="col-xs-12">
-								<!-- PAGE CONTENT BEGINS -->
-								<div class="row">
+								<div class="col-sm-9">
+									<!-- <div class="widget-box"> -->
+										<!-- <div class="widget-header widget-header-flat">
+											<h4 class="widget-title smaller">骑行轨迹分析</h4>
+										</div> -->
 
-									<div class="col-sm-9">
-										<!-- <div class="widget-box"> -->
-											<!-- <div class="widget-header widget-header-flat">
-												<h4 class="widget-title smaller">骑行轨迹分析</h4>
-											</div> -->
-
-											<!-- <div class="widget-body"> -->
-												<div id="main" style="width: 100%;height:500px;margin:0 auto"></div>
-											<!-- </div> -->
+										<!-- <div class="widget-body"> -->
+											<div id="main" style="width: 100%;height:500px;margin:0 auto"></div>
 										<!-- </div> -->
-									</div>
-									<div class="col-sm-3">
-										<div class="ranking-list">
-											<h4>热门景点TOP5排行</h4>
-											<ul>
-												<li>
-													<div class="num">
-														1
-													</div>
-													<div class="name">
-														薰衣草园
-													</div>
-												</li>
-												<li>
-													<div class="num">
-														2
-													</div>
-													<div class="name">
-														观景草坪
-													</div>
-												</li>
-												<li>
-													<div class="num">
-														3
-													</div>
-													<div class="name">
-														玫瑰园
-													</div>
-												</li>
-												<li>
-													<div class="num">
-														4
-													</div>
-													<div class="name">
-														香草园
-													</div>
-												</li>
-												<li>
-													<div class="num">
-														5
-													</div>
-													<div class="name">
-														园艺模型
-													</div>
-												</li>
-											</ul>
-										</div>
+									<!-- </div> -->
+								</div>
+								<div class="col-sm-3">
+									<div class="ranking-list">
+										<h4>热门景点TOP5排行</h4>
+										<ul id="rankingList">
+											<li>
+												<div class="num">
+													1
+												</div>
+												<div class="name">
+													薰衣草园
+												</div>
+											</li>
+											<li>
+												<div class="num">
+													2
+												</div>
+												<div class="name">
+													观景草坪
+												</div>
+											</li>
+											<li>
+												<div class="num">
+													3
+												</div>
+												<div class="name">
+													玫瑰园
+												</div>
+											</li>
+											<li>
+												<div class="num">
+													4
+												</div>
+												<div class="name">
+													香草园
+												</div>
+											</li>
+											<li>
+												<div class="num">
+													5
+												</div>
+												<div class="name">
+													园艺模型
+												</div>
+											</li>
+										</ul>
 									</div>
 								</div>
-							</div><!-- PAGE CONTENT ENDS -->
-						</div>
-					</form>
+							</div>
+						</div><!-- PAGE CONTENT ENDS -->
+					</div>
 				</div><!-- /.col -->
 			</div><!-- /.row -->
 		</div>
@@ -158,6 +152,11 @@
 	</div>
 </div>
 <!-- /.main-content -->
+<form  id="Form">
+	<input type="hidden" name="startTime" id="dtp_input_startDate" value="" />
+	<input type="hidden" name="endTime" id="dtp_input_endDate" value="" />
+	<input type="hidden" name="type" id="insertData" value="1">
+</form>
 <!-- 百度echarts -->
 <script src="static/echarts/echarts.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
@@ -350,15 +349,49 @@
     }
 );
 })();
-	$('.choose-box').click(function(event) {
-		var event=event||e;
-		console.log(event.currentTarget.dataset.index);
-		$('#insertData').val(event.currentTarget.dataset.index);
-		$("#Form").submit();
+$('.choose-box').click(function(event) {
+	var event=event||e;
+	console.log(event.currentTarget.dataset.index);
+	var dataIndex = event.currentTarget.dataset.index;
+	$('#insertData').val(dataIndex.toString());
+	gsearch();
+})
+function toSearch(){
+	$('#insertData').val('');
+	gsearch();
+}
+function gsearch(){
+	console.log('表单提交');
+	console.log($('#Form').serialize());
+	$.ajax({
+		type: "POST",                  //提交方式
+		dataType: "json",              //预期服务器返回的数据类型
+		url: "/ZHLY/biketrace/getTopFive",          //目标url
+		data: $('#Form').serialize(), //提交的数据
+		success: function (result) {
+			console.log(result);       //打印服务端返回的数据(调试用)
+			//let xData =  result.data.topFiveDate.map((item)=>{return item['toView']});
+		//	console.log(xData);
+		//	reloadRankingList(xData);	
+		},
+		error : function(error) {
+			console.log(error);
+		}
+	});
+}
+//重新加载排行榜
+function reloadRankingList(xData){
+	$("#rankingList").empty();
+	xData.forEach(function(item,index){
+		$("#rankingList").append(
+		'<li>'+
+		'<div class="num">'  + (index+1) +'</div>'+
+		'<div class="name">' + item	+'</div>' +
+
+		'</li>'
+		)
 	})
-    function gsearch(){
-        $("#Form").submit();
-    }
+}
 		//日期框
 		laydate.render({
 			elem: '#startDate'//指定元素
@@ -377,14 +410,7 @@
 			}
 		});
     
-    // 使用刚指定的配置项和数据显示图表。
-    // myChart.setOption(option);
-		/*窗口自适应，关键代码*/
-		// setTimeout(function (){
-		// 	window.onresize = function () {
-		// 		myChart.resize();
-		// 	}
-		// },200)
+    
 </script>
 <!-- 返回顶部 -->
 <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">

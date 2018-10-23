@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TourchartQuarterMapper">
+	
+	<!--表名 -->
+	<sql id="tableName">
+		TOURCHARTQUARTER
+	</sql>
+	
+	<!-- 字段 -->
+	<sql id="Field">
+		ID,	
+		SPOTNAME,	
+		SPOTID,	
+		MONTH,	
+		YEAR,	
+		TOURNUM,	
+		TOTALNUM,	
+		AVGNUM,	
+		TOURCHARTQUARTER_ID
+	</sql>
+	
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{ID},	
+		#{SPOTNAME},	
+		#{SPOTID},	
+		#{MONTH},	
+		#{YEAR},	
+		#{TOURNUM},	
+		#{TOTALNUM},	
+		#{AVGNUM},	
+		#{TOURCHARTQUARTER_ID}
+	</sql>
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into 
+	<include refid="tableName"></include>
+		(
+	<include refid="Field"></include>
+		) values (
+	<include refid="FieldValue"></include>
+		)
+	</insert>
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			TOURCHARTQUARTER_ID = #{TOURCHARTQUARTER_ID}
+	</delete>
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set 
+			ID = #{ID},
+			SPOTNAME = #{SPOTNAME},
+			SPOTID = #{SPOTID},
+			MONTH = #{MONTH},
+			YEAR = #{YEAR},
+			TOURNUM = #{TOURNUM},
+			TOTALNUM = #{TOTALNUM},
+			AVGNUM = #{AVGNUM},
+		TOURCHARTQUARTER_ID = TOURCHARTQUARTER_ID
+		where 
+		TOURCHARTQUARTER_ID = #{TOURCHARTQUARTER_ID}
+	</update>
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 
+			TOURCHARTQUARTER_ID = #{TOURCHARTQUARTER_ID}
+	</select>
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+
+
+		select month ,sum(tournum) as tournum ,sum(avgnum) avgnum from bigdata_ota_tourchart_month  where 1=1 and spotId = '1'
+
+		<if test="pd.startDate!= null and pd.startDate != ''"><!-- 关键词检索 -->
+			and
+			(
+			month  <![CDATA[ >= ]]> #{pd.startDate}
+			)
+		</if>
+		<if test="pd.endDate!= null and pd.endDate != ''"><!-- 关键词检索 -->
+			and
+			(
+			month  <![CDATA[ <= ]]> #{pd.endDate}
+			)
+		</if>
+		group by month
+
+
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			TOURCHARTQUARTER_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+	<!-- fh313596790qq(青苔) -->
+</mapper>

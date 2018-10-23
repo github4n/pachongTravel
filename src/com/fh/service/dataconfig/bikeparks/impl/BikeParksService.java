@@ -1,8 +1,11 @@
 package com.fh.service.dataconfig.bikeparks.impl;
 
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
 import com.fh.dao.DaoSupport;
 import com.fh.entity.Page;
 import com.fh.util.PageData;
@@ -76,6 +79,11 @@ public class BikeParksService implements BikeParksManager{
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("BikeParksMapper.deleteAll", ArrayDATA_IDS);
+	}
+
+	@Override
+	public List<PageData> getPersonNum(Page page) throws Exception {
+		return (List<PageData>)dao.findForList("BikeParksMapper.getPersonNum", page);
 	}
 	
 }

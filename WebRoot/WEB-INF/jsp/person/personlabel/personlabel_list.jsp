@@ -611,22 +611,23 @@ function gsearch(){
 	console.log('表单提交');
 	console.log($('#Form').serialize());
 	$.ajax({
-		type: "POST",                  //提交方式
-		dataType: "json",              //预期服务器返回的数据类型
+		type: "POST",  //提交方式
+		dataType: "json",  //预期服务器返回的数据类型
 		url: "/ZHLY/personlabel/getSegmentation",          //目标url
 		data: $('#Form').serialize(), //提交的数据
 		success: function (result) {
 			console.log(result);       //打印服务端返回的数据(调试用)
 			$("#male .num h3:eq(1)").text(result.data.highQualityMaleGroup.userNumber);
-			$("#male .perc h3:eq(1)").text(result.data.highQualityMaleGroup.proportion);
+			$("#male .perc h3:eq(1)").text(result.data.highQualityMaleGroup.proportion+'%');
 			$("#female .num h3:eq(1)").text(result.data.highQualityFemaleGroup.userNumber);
-			$("#female .perc h3:eq(1)").text(result.data.highQualityFemaleGroup.proportion);
+			$("#female .perc h3:eq(1)").text(result.data.highQualityFemaleGroup.proportion+'%');
 			$("#old .num h3:eq(1)").text(result.data.elderlyTouristsGroup.userNumber);
-			$("#old .perc h3:eq(1)").text(result.data.elderlyTouristsGroup.proportion);
-			$("#middle .num h3:eq(1)").text(result.data.middleAgedTouristsGroup.userNumber);
-			$("#middle .perc h3:eq(1)").text(result.data.middleAgedTouristsGroup.proportion);
+			$("#old .perc h3:eq(1)").text(result.data.elderlyTouristsGroup.proportion+'%');
+		
 			$("#children .num h3:eq(1)").text(result.data.parentChildTourGroup.userNumber);
-			$("#children .perc h3:eq(1)").text(result.data.parentChildTourGroup.proportion);
+			$("#children .perc h3:eq(1)").text(result.data.parentChildTourGroup.proportion+'%');
+			// $("#middle .num h3:eq(1)").text(result.data.middleAgedTouristsGroup.userNumber);
+			// $("#middle .perc h3:eq(1)").text(result.data.middleAgedTouristsGroup.proportion+'%');
 			// let xData =  result.data.map((item)=>{return item['ridearea']}),
 			// yData = result.data.map((item)=>{return item['sumridenm']});
 			// reloadEcharts(xData,yData);		

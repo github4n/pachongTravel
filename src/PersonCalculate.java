@@ -301,7 +301,8 @@ public class PersonCalculate {
 			System.out.println("进门人数为："+inPerson+",出门人数为："+outPerson+",在园人数为："+inParkPerson);
 			
 			//写数据表sys_config
-			this.writeInPerson(inParkPerson);
+//			this.writeInPerson(inParkPerson);
+			this.writePersonAll(inParkPerson, inPerson, outPerson);
 			
 			
 		 }catch (JSONException e) {
@@ -318,6 +319,25 @@ public class PersonCalculate {
 	     String sql = "update sys_config set value = '"+inParkPerson+"' where name = 'jrkl'";
 	     PreparedStatement pstmt = con.prepareStatement(sql);
 	     boolean rs = pstmt.execute();
+	 }
+	 
+	 public void writePersonAll(int inParkPerson, int ryzrs, int lyzrs) throws SQLException{
+		 Connection con = jdbcDbCon.conn();//获取连接
+	     String sql1 = "update sys_config set value = ? where name = ?";
+	     PreparedStatement pstmt = con.prepareStatement(sql1);
+	     pstmt.setInt(1, inParkPerson);
+	     pstmt.setString(2, "jrkl");
+	     pstmt.addBatch();
+	     
+	     pstmt.setInt(1, ryzrs);
+	     pstmt.setString(2, "ryzrs");
+	     pstmt.addBatch();
+	     
+	     pstmt.setInt(1, lyzrs);
+	     pstmt.setString(2, "lyzrs");
+	     pstmt.addBatch();
+	     
+	     int[] rs = pstmt.executeBatch();
 	 }
 	 
 	 private List<NameValuePair> setHttpParams(Map<String, String> paramMap) {

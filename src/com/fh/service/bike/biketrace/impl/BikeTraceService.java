@@ -1,8 +1,11 @@
 package com.fh.service.bike.biketrace.impl;
 
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
 import com.fh.dao.DaoSupport;
 import com.fh.entity.Page;
 import com.fh.util.PageData;
@@ -76,6 +79,11 @@ public class BikeTraceService implements BikeTraceManager{
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("BikeTraceMapper.deleteAll", ArrayDATA_IDS);
+	}
+
+	@Override
+	public List<PageData> getTopFive(Page page) throws Exception {
+		return (List<PageData>)dao.findForList("BikeTraceMapper.getTopFive", page);
 	}
 	
 }

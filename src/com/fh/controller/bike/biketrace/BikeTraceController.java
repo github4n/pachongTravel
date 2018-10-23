@@ -4,10 +4,13 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 import javax.annotation.Resource;
 
 import com.fh.util.*;
+
 import net.sf.json.JSONObject;
+
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.service.bike.biketrace.BikeTraceManager;
@@ -132,20 +136,7 @@ public class BikeTraceController extends BaseController {
 			fromList.add(pgdt.getString("fromView"));
 			toList.add(pgdt.getString("toView"));
 			valueList.add(pgdt.get("cnt"));
-			
-			
-//			map.put(pgdt.get("fromView").toString(), pgdt.get("toView").toString()+","+pgdt.get("cnt"));
-			//maps.put(pgdt.get("toView").toString(), pgdt.get("cnt"));
 		}
-//		for (Map.Entry<String, Object> entry : map.entrySet()) {
-//			xData.add(entry.getKey());
-//			yData.add(entry.getValue());
-//		}
-//		for (Map.Entry<String, Object> entry : maps.entrySet()) {
-//			xxData.add(entry.getKey());
-//			yyData.add(entry.getValue());
-//		}
-
 
 		xJson.put("fromView", fromList);
 		xJson.put("toView", toList);
@@ -158,8 +149,91 @@ public class BikeTraceController extends BaseController {
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;
 	}
+	
+	
+	@RequestMapping(value = "/getTraceNum")
+	@ResponseBody
+	public JSONObject getTraceNum(Page page, String startTime,String endTime,String type) throws Exception {
 
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		String start_date ="";
+		String end_date = "";
+		Calendar now = Calendar.getInstance();
+		SimpleDateFormat smf = new SimpleDateFormat("yyyy-MM-dd");
+		String currentDay = smf.format(now.getTime());
+		JSONObject jt = new JSONObject();
+        Map<String,Object> map= new HashMap<String,Object>();
+		OtaUtil util = new OtaUtil();
+		if(null != type && !"".equals(type)){
+			//如果选择按钮，则返回固定的起始时间和结束时间
+			end_date = util.getEndDateS(type);
+			start_date = util.getStartDateS(type);
+		}else if(null != startTime && !"".equals(startTime) && null != endTime && !"".equals(endTime)){
+			//如果选择了日期选择框，则返回日期框中选择的起始时间和结束时间
+			start_date = startTime;
+			end_date = endTime;
+		}else {
+			start_date=currentDay;
+			end_date=currentDay;
+		}
+		pd.put("endDate", end_date);
+		pd.put("startDate", start_date);
+		page.setPd(pd);
 
+		//List<PageData> varList = touragentService.tourAgentChart(page);
+		List<PageData>	traceNum = biketraceService.cyclingTrackList(page);//列出BikeTrace列表
+        map.put("traceNum",traceNum);
+        jt.put("data",map);
+		return jt;
+
+	}
+
+	@RequestMapping(value = "/getTopFive")
+	@ResponseBody
+	public JSONObject getTopFive(Page page, String startTime,String endTime,String type) throws Exception {
+
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		String start_date ="";
+		String end_date = "";
+		Calendar now = Calendar.getInstance();
+		SimpleDateFormat smf = new SimpleDateFormat("yyyy-MM-dd");
+		String currentDay = smf.format(now.getTime());
+		JSONObject jt = new JSONObject();
+		JSONObject xJson = new JSONObject();
+		JSONObject yJson = new JSONObject();
+        Map<String,Object> map= new HashMap<String,Object>();
+        Map<String,Object> ymap= new HashMap<String,Object>();
+		OtaUtil util = new OtaUtil();
+		if(null != type && !"".equals(type)){
+			//如果选择按钮，则返回固定的起始时间和结束时间
+			end_date = util.getEndDateS(type);
+			start_date = util.getStartDateS(type);
+		}else if(null != startTime && !"".equals(startTime) && null != endTime && !"".equals(endTime)){
+			//如果选择了日期选择框，则返回日期框中选择的起始时间和结束时间
+			start_date = startTime;
+			end_date = endTime;
+		}else {
+			start_date=currentDay;
+			end_date=currentDay;
+		}
+		pd.put("endDate", end_date);
+		pd.put("startDate", start_date);
+		page.setPd(pd);
+
+		//List<PageData> varList = touragentService.tourAgentChart(page);
+        List<PageData> topFiveDate = biketraceService.getTopFive(page);//按时间查询
+        List<PageData> traceNum = biketraceService.cyclingTrackList(page);//列出BikeTrace列表
+        map.put("traceNum",traceNum);
+        ymap.put("topFiveDate",topFiveDate);
+        xJson.put("data",map);
+        yJson.put("data", ymap);
+        jt.put("xJson",xJson);
+        jt.put("yJson",yJson);
+		return jt;
+
+	}
 
 
 

@@ -1,6 +1,7 @@
 package com.fh.service.bike.biketrace;
 
 import java.util.List;
+
 import com.fh.entity.Page;
 import com.fh.util.PageData;
 
@@ -53,6 +54,8 @@ public interface BikeTraceManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
+	
+	public List<PageData> getTopFive(Page page) throws Exception;
 	
 }
 
