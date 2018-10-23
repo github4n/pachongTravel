@@ -349,20 +349,21 @@ li.person-label .user-data ul{
   width: 100%;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 li.person-label .user-data li.user-label{
   list-style: none;
-  margin-top: 42px;
-  /* width: 120px; */
-  padding: 0 30px;
-  height: 35px;
-  line-height: 35px;
-  font-size: 16px;
-  color: #00aeef;
-  border: 1px solid #00aeef;
-  border-radius: 16px;
+    margin-top: 42px;
+    margin-right: 18px;
+    /* width: 120px; */
+    padding: 0 30px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 16px;
+    color: #00aeef;
+    border: 1px solid #00aeef;
+    border-radius: 16px;
 }
 li.person-label .user-data li.user-label:nth-child(2){
   color: #16B8BE;

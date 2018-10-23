@@ -228,13 +228,13 @@
                     return v[1].replace(':', ' > ');
                 }
             },
-            legend: {
-                orient: 'vertical',
-                x:'left',
-                data:['薰衣草园'],
-                selectedMode: 'single'
+            // legend: {
+            //     orient: 'vertical',
+            //     x:'left',
+            //     data:['薰衣草园'],
+            //     selectedMode: 'single'
                 
-            },
+            // },
             toolbox: {
                 show : true,
                 orient : 'vertical',
