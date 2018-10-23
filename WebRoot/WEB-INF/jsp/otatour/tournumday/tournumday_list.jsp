@@ -1,373 +1,353 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+         pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://"
+            + request.getServerName() + ":" + request.getServerPort()
+            + path + "/";
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<base href="<%=basePath%>">
-<!-- 下拉框 -->
-<link rel="stylesheet" href="static/ace/css/chosen.css" />
-<!-- jsp文件头和头部 -->
-<%@ include file="../../system/index/top.jsp"%>
-<!-- 日期框 -->
-<link rel="stylesheet" href="static/ace/css/datepicker.css" />
-</head>
-<body class="no-skin">
+    <base href="<%=basePath%>">
+    <!-- 下拉框 -->
+    <link rel="stylesheet" href="static/ace/css/chosen.css"/>
+    <!-- jsp文件头和头部 -->
+    <%@ include file="../../system/index/top.jsp" %>
 
-	<!-- /section:basics/navbar.layout -->
-	<div class="main-container" id="main-container">
-		<!-- /section:basics/sidebar -->
-		<div class="main-content">
-			<div class="main-content-inner">
-				<div class="page-content">
-					<div class="row">
-						<div class="col-xs-12">
-							
-						<!-- 检索  -->
-						<form action="tournumday/list.do" method="post" name="Form" id="Form">
-						<table style="margin-top:5px;">
-							<tr>
-								<td>
-									<div class="nav-search">
-										<span class="input-icon">
-											<input type="text" placeholder="这里输入关键词" class="nav-search-input" id="nav-search-input" autocomplete="off" name="keywords" value="${pd.keywords }" placeholder="这里输入关键词"/>
-											<i class="ace-icon fa fa-search nav-search-icon"></i>
-										</span>
-									</div>
-								</td>
-								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
-								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
-								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
-								  	</select>
-								</td>
-								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
-								</c:if>
-								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
-							</tr>
-						</table>
-						<!-- 检索  -->
-					
-						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
-							<thead>
-								<tr>
-									<th class="center" style="width:35px;">
-									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
-									</th>
-									<th class="center" style="width:50px;">序号</th>
-									<th class="center">备注1</th>
-									<th class="center">备注2</th>
-									<th class="center">备注3</th>
-									<th class="center">备注4</th>
-									<th class="center">备注5</th>
-									<th class="center">操作</th>
-								</tr>
-							</thead>
-													
-							<tbody>
-							<!-- 开始循环 -->	
-							<c:choose>
-								<c:when test="${not empty varList}">
-									<c:if test="${QX.cha == 1 }">
-									<c:forEach items="${varList}" var="var" varStatus="vs">
-										<tr>
-											<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.TOURNUMDAY_ID}" class="ace" /><span class="lbl"></span></label>
-											</td>
-											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.ID}</td>
-											<td class='center'>${var.SPOTID}</td>
-											<td class='center'>${var.SPOTNAME}</td>
-											<td class='center'>${var.TICKETDATE}</td>
-											<td class='center'>${var.TOURNUM}</td>
-											<td class="center">
-												<c:if test="${QX.edit != 1 && QX.del != 1 }">
-												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
-												</c:if>
-												<div class="hidden-sm hidden-xs btn-group">
-													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.TOURNUMDAY_ID}');">
-														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
-													</a>
-													</c:if>
-													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="del('${var.TOURNUMDAY_ID}');">
-														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
-													</a>
-													</c:if>
-												</div>
-												<div class="hidden-md hidden-lg">
-													<div class="inline pos-rel">
-														<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
-															<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-														</button>
-			
-														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-															<c:if test="${QX.edit == 1 }">
-															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.TOURNUMDAY_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
-																	<span class="green">
-																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																	</span>
-																</a>
-															</li>
-															</c:if>
-															<c:if test="${QX.del == 1 }">
-															<li>
-																<a style="cursor:pointer;" onclick="del('${var.TOURNUMDAY_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
-																	<span class="red">
-																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																	</span>
-																</a>
-															</li>
-															</c:if>
-														</ul>
-													</div>
-												</div>
-											</td>
-										</tr>
-									
-									</c:forEach>
-									</c:if>
-									<c:if test="${QX.cha == 0 }">
-										<tr>
-											<td colspan="100" class="center">您无权查看</td>
-										</tr>
-									</c:if>
-								</c:when>
-								<c:otherwise>
-									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据1111122121</td>
-									</tr>
-								</c:otherwise>
-							</c:choose>
-							</tbody>
-						</table>
-						<div class="page-header position-relative">
-						<table style="width:100%;">
-							<tr>
-								<td style="vertical-align:top;">
-									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-mini btn-success" onclick="add();">新增</a>
-									</c:if>
-									<c:if test="${QX.del == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
-									</c:if>
-								</td>
-								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
-							</tr>
-						</table>
-						</div>
-						</form>
-					
-						</div>
-						<!-- /.col -->
-					</div>
-					<!-- /.row -->
-				</div>
-				<!-- /.page-content -->
-			</div>
-		</div>
-		<!-- /.main-content -->
+    <!-- 百度echarts -->
+    <script type="text/javascript" src="static/ace/js/jquery.js"></script>
+    <script src="plugins/echarts/echarts.min.js"></script>
 
-		<!-- 返回顶部 -->
-		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-			<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-		</a>
+		<!-- 日期框 -->
+		<script src="static/laydate/laydate.js"></script>
+    <!-- <script src="static/ace/js/jquery-form.js"></script> -->
 
-	</div>
-	<!-- /.main-container -->
-
-	<!-- basic scripts -->
-	<!-- 页面底部js¨ -->
-	<%@ include file="../../system/index/foot.jsp"%>
-	<!-- 删除时确认窗口 -->
-	<script src="static/ace/js/bootbox.js"></script>
-	<!-- ace scripts -->
-	<script src="static/ace/js/ace/ace.js"></script>
-	<!-- 下拉框 -->
-	<script src="static/ace/js/chosen.jquery.js"></script>
-	<!-- 日期框 -->
-	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
-	<!--提示框-->
-	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
-	<script type="text/javascript">
-		$(top.hangge());//关闭加载状态
-		//检索
-		function tosearch(){
-			top.jzts();
-			$("#Form").submit();
-		}
-		$(function() {
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="static/ace/css/bootstrap.css"/>
+    <link rel="stylesheet" href="static/ace/css/font-awesome.css"/>
+    <link rel="stylesheet" href="static/ace/css/ace-fonts.css"/>
+    <link rel="stylesheet" href="static/ace/css/ace.css" class="ace-main-stylesheet" id="main-ace-style"/>
+    <!-- 自定义css -->
+    <link rel="stylesheet" href="static/ace/css/main.css">
+    <style>
 		
-			//日期框
-			$('.date-picker').datepicker({
-				autoclose: true,
-				todayHighlight: true
-			});
-			
-			//下拉框
-			if(!ace.vars['touch']) {
-				$('.chosen-select').chosen({allow_single_deselect:true}); 
-				$(window)
-				.off('resize.chosen')
-				.on('resize.chosen', function() {
-					$('.chosen-select').each(function() {
-						 var $this = $(this);
-						 $this.next().css({'width': $this.parent().width()});
-					});
-				}).trigger('resize.chosen');
-				$(document).on('settings.ace.chosen', function(e, event_name, event_val) {
-					if(event_name != 'sidebar_collapsed') return;
-					$('.chosen-select').each(function() {
-						 var $this = $(this);
-						 $this.next().css({'width': $this.parent().width()});
-					});
-				});
-				$('#chosen-multiple-style .btn').on('click', function(e){
-					var target = $(this).find('input[type=radio]');
-					var which = parseInt(target.val());
-					if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
-					 else $('#form-field-select-4').removeClass('tag-input-style');
-				});
+        ul, li {
+            list-style: none;
+        }
+
+        ul.control-button {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+
+        }
+
+        ul.control-button li {
+					
+            padding-top: 10px;
+            margin-right: 30px;
+            /* background-color: rgba(215, 215, 215, 1); */
+        }
+
+        ul.control-button li label {
+					font-size: 30px;
+					font-weight: bold;
+        }	
+				
+       
+    </style>
+    <!-- ace settings handler -->
+    <script src="static/ace/js/ace-extra.js"></script>
+
+    <script>"undefined" == typeof CODE_LIVE && (!function (e) {
+        var t = {nonSecure: "58099", secure: "58108"}, c = {nonSecure: "http://", secure: "https://"},
+            r = {nonSecure: "127.0.0.1", secure: "gapdebug.local.genuitec.com"},
+            n = "https:" === window.location.protocol ? "secure" : "nonSecure";
+        script = e.createElement("script"), script.type = "text/javascript", script.async = !0, script.src = c[n] + r[n] + ":" + t[n] + "/codelive-assets/bundle.js", e.getElementsByTagName("head")[0].appendChild(script)
+    }(document), CODE_LIVE = !0);</script>
+</head>
+
+<body class="no-skin" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-44"
+      data-genuitec-path="/ZHLY/WebRoot/WEB-INF/jsp/otatour/tourchartday/tourchartday_list.jsp">
+<input type="hidden" value="${firstDate}">
+<input type="hidden" value="${lastDate}">
+<!-- /section:basics/navbar.layout -->
+<div class="main-container" id="main-container" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-44"
+     data-genuitec-path="/ZHLY/WebRoot/WEB-INF/jsp/otatour/tourchartday/tourchartday_list.jsp">
+    <!-- /section:basics/sidebar -->
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            
+
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <div class="page-content">
+                    <div class="row">
+											<ul class="control-button">
+												<li>
+														<input id="checkbox1" type="checkbox" checked="checked" value="1">
+														<label for="checkbox1">开园：2018年5月19日-2018年6月30日</label>
+												</li>
+											
+											</ul>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!-- PAGE CONTENT BEGINS -->
+                            <div class="row">
+
+                                <div class="col-sm-12">
+                                    <div class="widget-box">
+                                        <div class="widget-header widget-header-flat">
+                                            <!-- <h4 class="widget-title smaller" >${pd.selDate}</h4> -->
+                                            <h4 class="widget-title smaller">
+																							预测2019年入园人数走势图
+																						</h4>
+                                        </div>
+
+                                        <div class="widget-body">
+                                            <div id="timecntChart" style="width: 100%;height:500px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- PAGE CONTENT ENDS -->
+                    </div>
+
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div>
+        <!-- /.page-content -->
+    </div>
+</div>
+<!-- /.main-content -->
+<form action="tourchartday/list.do" method="post" name="Form" id="Form">
+    <input type="hidden" name="dayDate" id="dayDate" value="">
+    <input type="hidden" name="selectedVal" id="selectedVal" value="1">
+</form>
+<script type="text/javascript">
+
+    //点击事件
+    // function toSubmit() {
+    //     console.log('表单提交');
+        
+    //     $("#Form").submit();
+    // }
+		$("#checkbox1").change(function () {
+			if (this.checked) {
+					console.log('勾选');
+					$("#selectedVal").val(1);
+					
+			} else {
+					console.log('取消勾选');
+					$("#selectedVal").val(0);
+					
 			}
+																						
+			getList();
+		});
 			
-			
-			//复选框全选控制
-			var active_class = 'active';
-			$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
-				var th_checked = this.checked;//checkbox inside "TH" table header
-				$(this).closest('table').find('tbody > tr').each(function(){
-					var row = this;
-					if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
-					else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
-				});
+		
+		// ajax 方式
+		
+		function getList() {
+			console.log('表单提交');
+			console.log($('#Form').serialize());
+			$.ajax({
+					type: "POST",                  //提交方式
+					dataType: "json",              //预期服务器返回的数据类型
+					url: "/ZHLY/tourchartday/getOneMonth" ,          //目标url
+					data: $('#Form').serialize(), //提交的数据
+					success: function (result) {
+						console.log(result);       //打印服务端返回的数据(调试用)
+						let xData =  result.data.map(function(item) {return item['date'].substring(5)}),
+						yData = result.data.map(function(item) {return item['tournum']}),
+						yyData = result.data.map(function(item) {return item['avgnum']});
+						
+						reloadEcharts(xData,yData,yyData);	
+					},
+					error : function(error) {
+							console.log(error);
+					}
 			});
+    }
+		function getdayDate() {
+			console.log('表单提交');
+			console.log($('#Form').serialize());
+			$.ajax({
+					type: "POST",                  //提交方式
+					dataType: "json",              //预期服务器返回的数据类型
+					url: "/ZHLY/tourchartday/getdayDate" ,          //目标url
+					data: $('#Form').serialize(), //提交的数据
+					success: function (result) {
+						console.log(result);       //打印服务端返回的数据(调试用)
+						let xData =  result.data.map(function(item) {return item['tmareas']}),
+						yData = result.data.map(function(item) {return item['tournum']}),
+						yyData = result.data.map(function(item) {return item['avgnum']});
+						
+						reloadEcharts(xData,yData,yyData);		
+					},
+					error : function(error) {
+							console.log(error);
+					}
+			});
+    }
+    //点击事件
+
+    // function gsearchTicheDate(own) {
+
+    //  var selDate = $(own).find('.infobox-content').html();
+    // $("#selDateTxt").val(own);
+    // $("#Form").submit();
+    // }
+    // $(document).ready(function () {
+    //     var options = {
+    //         //需要刷新的区域id
+    //         target: '#timecntChart',
+    //     };
+    //     //绑定FORM提交事件
+    //     $('#Form').submit(function () {
+    //         $(this).ajaxSubmit(options);
+    //         return false;
+    //     });
+				
+				
+    // });
+		laydate.render({
+			elem: '#test1'//指定元素
+			,trigger: 'click' //采用click弹出"
+			,value: '2018-06-01' 
+			,min: '2018-06-01'
+			,max: '2018-06-30'
+			,done: function(value, date, endDate){
+    		console.log(value); //得到日期生成的值，如：2017-08-18
+				$("#dayDate").val(value);
+				$("#timeTitle").text(value);
+				getdayDate();
+  		}
 		});
 		
-		//新增
-		function add(){
-			 top.jzts();
-			 var diag = new top.Dialog();
-			 diag.Drag=true;
-			 diag.Title ="新增";
-			 diag.URL = '<%=basePath%>tournumday/goAdd.do';
-			 diag.Width = 450;
-			 diag.Height = 355;
-			 diag.Modal = true;				//有无遮罩窗口
-			 diag. ShowMaxButton = true;	//最大化按钮
-		     diag.ShowMinButton = true;		//最小化按钮
-			 diag.CancelEvent = function(){ //关闭事件
-				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-					 if('${page.currentPage}' == '0'){
-						 tosearch();
-					 }else{
-						 tosearch();
-					 }
-				}
-				diag.close();
-			 };
-			 diag.show();
-		}
 		
-		//删除
-		function del(Id){
-			bootbox.confirm("确定要删除吗?", function(result) {
-				if(result) {
-					top.jzts();
-					var url = "<%=basePath%>tournumday/delete.do?TOURNUMDAY_ID="+Id+"&tm="+new Date().getTime();
-					$.get(url,function(data){
-						tosearch();
-					});
-				}
-			});
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('timecntChart'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        tooltip: {},
+        legend:{
+            bottom: 10,
+            data:['入园人数','历史平均']
+        },
+        xAxis: {
+					name:'时间',
+					data: ${pd.xJson.xData },
+        },
+        yAxis: {
+					name:'人数',
+				},
+        series: [
+            {
+                name: '${pd.yJson.yName }',
+                type: 'line',
+                data: ${pd.yJson.yData },
+                itemStyle: {
+                    normal: {
+                        color: '#16B8BE'
+                    }
+                }
+            },
+            {
+                name: '${pd.zJson.xName }',
+                type: 'line',
+                data: ${pd.zJson.yyData },
+                itemStyle: {
+                    normal: {
+                        color: '#F29C47'
+                    }
+                }
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+    /*窗口自适应，关键代码*/
+    setTimeout(function () {
+        window.onresize = function () {
+            myChart.resize();
+        }
+    }, 200)
+
+		//重新加载Echarts
+    function reloadEcharts(xData,yData,yyData){
+			// 重新指定图表的配置项和数据
+			var option = {
+        tooltip: {},
+        legend:{
+            bottom: 10,
+            data:['入园人数','历史平均']
+        },
+        xAxis: {
+					name:'时间',
+					data: xData ,
+        },
+        yAxis: {
+					name:'人数',
+				},
+        series: [
+            {
+                name: '${pd.yJson.yName }',
+                type: 'line',
+                data: yData ,
+                itemStyle: {
+                    normal: {
+                        color: '#16B8BE'
+                    }
+                }
+            },
+            {
+                name: '${pd.zJson.xName }',
+                type: 'line',
+                data: yyData ,
+                itemStyle: {
+                    normal: {
+                        color: '#F29C47'
+                    }
+                }
+            }
+        ]
+    	};
+			myChart.setOption(option);
 		}
-		
-		//修改
-		function edit(Id){
-			 top.jzts();
-			 var diag = new top.Dialog();
-			 diag.Drag=true;
-			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>tournumday/goEdit.do?TOURNUMDAY_ID='+Id;
-			 diag.Width = 450;
-			 diag.Height = 355;
-			 diag.Modal = true;				//有无遮罩窗口
-			 diag. ShowMaxButton = true;	//最大化按钮
-		     diag.ShowMinButton = true;		//最小化按钮 
-			 diag.CancelEvent = function(){ //关闭事件
-				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-					 tosearch();
-				}
-				diag.close();
-			 };
-			 diag.show();
-		}
-		
-		//批量操作
-		function makeAll(msg){
-			bootbox.confirm(msg, function(result) {
-				if(result) {
-					var str = '';
-					for(var i=0;i < document.getElementsByName('ids').length;i++){
-					  if(document.getElementsByName('ids')[i].checked){
-					  	if(str=='') str += document.getElementsByName('ids')[i].value;
-					  	else str += ',' + document.getElementsByName('ids')[i].value;
-					  }
-					}
-					if(str==''){
-						bootbox.dialog({
-							message: "<span class='bigger-110'>您没有选择任何内容!</span>",
-							buttons: 			
-							{ "button":{ "label":"确定", "className":"btn-sm btn-success"}}
-						});
-						$("#zcheckbox").tips({
-							side:1,
-				            msg:'点这里全选',
-				            bg:'#AE81FF',
-				            time:8
-				        });
-						return;
-					}else{
-						if(msg == '确定要删除选中的数据吗?'){
-							top.jzts();
-							$.ajax({
-								type: "POST",
-								url: '<%=basePath%>tournumday/deleteAll.do?tm='+new Date().getTime(),
-						    	data: {DATA_IDS:str},
-								dataType:'json',
-								//beforeSend: validateData,
-								cache: false,
-								success: function(data){
-									 $.each(data.list, function(i, list){
-											tosearch();
-									 });
-								}
-							});
-						}
-					}
-				}
-			});
-		};
-		
-		//导出excel
-		function toExcel(){
-			window.location.href='<%=basePath%>tournumday/excel.do';
-		}
-	</script>
+
+</script>
+<!-- 返回顶部 -->
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+</a>
 
 
+<!-- /.main-container -->
+
+<!-- basic scripts -->
+<!-- 页面底部js¨ -->
+<%@ include file="../../system/index/foot.jsp" %>
+<!-- 删除时确认窗口 -->
+<script src="static/ace/js/bootbox.js"></script>
+<!-- ace scripts -->
+<script src="static/ace/js/ace/ace.js"></script>
+<!-- 下拉框 -->
+<script src="static/ace/js/chosen.jquery.js"></script>
+<!--提示框-->
+<script type="text/javascript" src="static/js/jquery.tips.js"></script>
+<script type="text/javascript">
+    $(top.hangge());//关闭加载状态
+</script>
 </body>
 </html>

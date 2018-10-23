@@ -617,15 +617,25 @@ function gsearch(){
 		data: $('#Form').serialize(), //提交的数据
 		success: function (result) {
 			console.log(result);       //打印服务端返回的数据(调试用)
-			$("#male .num h3:eq(1)").text(result.data.highQualityMaleGroup.userNumber);
-			$("#male .perc h3:eq(1)").text(result.data.highQualityMaleGroup.proportion+'%');
-			$("#female .num h3:eq(1)").text(result.data.highQualityFemaleGroup.userNumber);
-			$("#female .perc h3:eq(1)").text(result.data.highQualityFemaleGroup.proportion+'%');
-			$("#old .num h3:eq(1)").text(result.data.elderlyTouristsGroup.userNumber);
-			$("#old .perc h3:eq(1)").text(result.data.elderlyTouristsGroup.proportion+'%');
+			if(result.data.highQualityMaleGroup.userNumber){
+				$("#male .num h3:eq(1)").text(result.data.highQualityMaleGroup.userNumber);
+			  $("#male .perc h3:eq(1)").text(result.data.highQualityMaleGroup.proportion+'%');
+			}
+			if(result.data.highQualityFemaleGroup.userNumber){
+				$("#female .num h3:eq(1)").text(result.data.highQualityFemaleGroup.userNumber);
+				$("#female .perc h3:eq(1)").text(result.data.highQualityFemaleGroup.proportion+'%');
+			}
+			
+			if(result.data.elderlyTouristsGroup.userNumber){
+				$("#old .num h3:eq(1)").text(result.data.elderlyTouristsGroup.userNumber);
+				$("#old .perc h3:eq(1)").text(result.data.elderlyTouristsGroup.proportion+'%');
+			}
+			if(result.data.parentChildTourGroup.userNumber){
+				$("#children .num h3:eq(1)").text(result.data.parentChildTourGroup.userNumber);
+			  $("#children .perc h3:eq(1)").text(result.data.parentChildTourGroup.proportion+'%');
+			}
 		
-			$("#children .num h3:eq(1)").text(result.data.parentChildTourGroup.userNumber);
-			$("#children .perc h3:eq(1)").text(result.data.parentChildTourGroup.proportion+'%');
+			
 			// $("#middle .num h3:eq(1)").text(result.data.middleAgedTouristsGroup.userNumber);
 			// $("#middle .perc h3:eq(1)").text(result.data.middleAgedTouristsGroup.proportion+'%');
 			// let xData =  result.data.map((item)=>{return item['ridearea']}),
