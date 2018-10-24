@@ -90,7 +90,7 @@
 											<ul class="control-button">
 												<li>
 														<input id="checkbox1" type="checkbox" checked="checked" value="1">
-														<label for="checkbox1">开园：2018年5月19日-2018年6月30日</label>
+														<label for="checkbox1">开园：2018年4月1日-2018年12月31日</label>
 												</li>
 											
 											</ul>

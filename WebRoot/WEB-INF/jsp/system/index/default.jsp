@@ -43,10 +43,10 @@
 		font-weight: bold;
 		margin-bottom: 24px;
 	}
-	#main .top-content, .bottom-content{
+	#main .top-content,.middle-content, .bottom-content{
 		width: 100%;
 	}
-	#main .top-content ul, .bottom-content ul{
+	#main .top-content ul,.middle-content ul, .bottom-content ul{
 		min-width: 1100px;
 		display: flex;
     justify-content: flex-start;
@@ -68,10 +68,19 @@
 	#main .bottom-content ul li{
 		width: 520px;
 	}
+	#main .middle-content ul li{
+		width: 520px;
+		text-align: center;
+	}
 	#main .bottom-content ul li span{
 		font-size: 34px;
 		line-height:120px;
 		margin-left: 30px;
+	}
+	#main .middle-content ul li span{
+		font-size: 30px;
+		line-height:120px;
+		margin-left: 0;
 	}
 	#main .bottom-content ul li span:last-child{
 		color:#d6487e;
@@ -135,18 +144,25 @@ setTimeout("top.hangge()",500);
 										</li>
 									</ul>
 								</div>
-								<div class="bottom-content">
-									<h1>购票/验票</h1>
+								<div class="middle-content">
+									<h1>购票/验票数据概览</h1>
 									<ul>
 										<li>
-											<span>系统用户:</span>
-											<span style="color:rgba(252,141,54,1);">100</span>
+											<span>自动售票量占总票数:</span>
+											<span style="color:#A20B8C">40%</span>
 										</li>
 										<li>
-											<span>系统会员:</span>
-											<span style="color:rgba(54,55,252,1);">150</span>
+											<span>闸机自动验票量占门票销售量:</span>
+											<span style="color:#3637FC">60%</span>
 										</li>
-										
+										<li>
+											<span>人脸识别购票量占自动售票量:</span>
+											<span style="color:#289504">40%</span>
+										</li>
+										<li>
+											<span>人脸识别验票量占自动验票量:</span>
+											<span style="color:#D80633">60%</span>
+										</li>
 									</ul>
 								</div>
 								<div class="bottom-content">

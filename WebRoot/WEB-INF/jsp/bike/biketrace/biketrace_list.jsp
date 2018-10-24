@@ -172,7 +172,8 @@
 <!-- <script src="static/js/example.js"></script> -->
 <!-- <script src="http://api.map.baidu.com/api?v=2.0&ak=fC8zClpT1ZYe03RDGcNwMhdSZSmQZOyh"></script> -->
 <script type="text/javascript">
-(function () {
+	//立即执行函数（避免变量污染）
+	(function () {
     require.config({
         paths: {
             echarts: 'static/echarts',
@@ -181,85 +182,76 @@
     });
 
     require(
-    [
-        "echarts",
-        "echarts/chart/main",
-        "echarts/chart/map"
-    ],
-    function (echarts, BMapExtension) {
-        // $('#main').css({
-        //     height:$('body').height(),
-        //     width: $('body').width()
-        // });
+			[
+					"echarts",
+					"echarts/chart/main",
+					"echarts/chart/map"
+			],
+			function (echarts, BMapExtension) {
+				// 初始化地图
+				var BMapExt = new BMapExtension($('#main')[0], BMap, echarts,{
+						enableMapClick: false
+				});
+				var map = BMapExt.getMap();
+				var container = BMapExt.getEchartsContainer();
 
-        // 初始化地图
-        var BMapExt = new BMapExtension($('#main')[0], BMap, echarts,{
-            enableMapClick: false
-        });
-        var map = BMapExt.getMap();
-        var container = BMapExt.getEchartsContainer();
-
-        var startPoint = {
-            x: 121.681012,
-            y: 31.152099
+				var startPoint = {
+						x: 121.681012,
+						y: 31.152099
 				};
 				console.log(${pd.xJson.fromView});
-		// console.log(${pd.yJson});
-		// console.log(${pd.zJson});
-		// console.log(${pd.xJson});
+			
 
-        var point = new BMap.Point(startPoint.x, startPoint.y);
-        map.centerAndZoom(point, 17);
-        map.enableScrollWheelZoom(true);
-        // 地图自定义样式
-        
-
-        option = {
-            color: ['gold','aqua','lime'],
-            title : {
-                text: '爬虫旅游',
-                subtext:'',
-                x:'right'
-            },
-            tooltip : {
-                trigger: 'item',
-                formatter: function (v) {
-                    return v[1].replace(':', ' > ');
-                }
-            },
-            // legend: {
-            //     orient: 'vertical',
-            //     x:'left',
-            //     data:['薰衣草园'],
-            //     selectedMode: 'single'
-                
-            // },
-            toolbox: {
-                show : true,
-                orient : 'vertical',
-                x: 'right',
-                y: 'center',
-                feature : {
-                    mark : {show: true},
-                    dataView : {show: true, readOnly: false},
-                    restore : {show: true},
-                    saveAsImage : {show: true}
-                }
-            },
-            dataRange: {
-                min : 0,
-                max : 100,
-                y: '60%',
-                calculable : true,
-                color: ['#ff3333', 'orange', 'yellow','lime','aqua']
-            },
-            series : [
-                {
-                    name:'薰衣草园',
-                    type:'map',
-                    mapType: 'none',
-                    data:[],
-                    geoCoord: {
+				var point = new BMap.Point(startPoint.x, startPoint.y);
+				map.centerAndZoom(point, 17);
+				map.enableScrollWheelZoom(true);
+				// 地图自定义样式
+				option = {
+						color: ['gold','aqua','lime'],
+						title : {
+								text: '爬虫旅游',
+								subtext:'',
+								x:'right'
+						},
+						tooltip : {
+								trigger: 'item',
+								formatter: function (v) {
+										return v[1].replace(':', ' > ');
+								}
+						},
+						// legend: {
+						//     orient: 'vertical',
+						//     x:'left',
+						//     data:['薰衣草园'],
+						//     selectedMode: 'single'
+								
+						// },
+						toolbox: {
+								show : true,
+								orient : 'vertical',
+								x: 'right',
+								y: 'center',
+								feature : {
+										mark : {show: true},
+										dataView : {show: true, readOnly: false},
+										restore : {show: true},
+										saveAsImage : {show: true}
+								}
+						},
+						dataRange: {
+								min : 0,
+								max : 100,
+								y: '60%',
+								calculable : true,
+								color: ['#ff3333', 'orange', 'yellow','lime','aqua']
+						},
+						series : [
+								{
+										name:'薰衣草园',
+										type:'map',
+										mapType: 'none',
+										data:[],
+										geoCoord: {
 											'香草园广场':[121.680635,31.14919],
 											'香草园入口':[121.680675,31.148939],
 											'香草园出口':[121.678888,31.148871],
@@ -276,54 +268,54 @@
 											'迪艇皮划艇':[121.675896,31.153949],
 											'达拉探索营地':[121.675896,31.153949],
 											'邻家露营地':[121.6805,31.152234]
-                       
-                    },
-        
-                    markLine : {
-                        smooth:true,
-                        effect : {
-                            show: true,
-                            scaleSize: 1,
-                            period: 30,
-                            color: '#fff',
-                            shadowBlur: 10
-                        },
-                        itemStyle : {
-                            normal: {
-                                borderWidth:2,
-                                lineStyle: {
-                                    type: 'solid',
-                                    shadowBlur: 10
-                                }
-                            }
-                        },
+											
+										},
+				
+										markLine : {
+												smooth:true,
+												effect : {
+														show: true,
+														scaleSize: 1,
+														period: 30,
+														color: '#fff',
+														shadowBlur: 10
+												},
+												itemStyle : {
+														normal: {
+																borderWidth:2,
+																lineStyle: {
+																		type: 'solid',
+																		shadowBlur: 10
+																}
+														}
+												},
 												data : ${pd.xJson.fromView}
 												// [
-                        //     [{name:'薰衣草园'}, {name:'迪艇皮划艇',value:90}],
-                        //     [{name:'薰衣草园'}, {name:'景观草坪',value:80}],
-                        //     [{name:'景观草坪'}, {name:'邻家农庄',value:70}],
-                        //     [{name:'邻家烧烤'}, {name:'薰衣草园',value:60}],
-                        //     [{name:'迪艇皮划艇'}, {name:'邻家烧烤',value:50}],
-                        //     [{name:'邻家烧烤'}, {name:'迪艇皮划艇',value:40}],
-                        //     [{name:'薰衣草园'}, {name:'香草园广场',value:30}],
-                        //    [{name:'薰衣草园'}, {name:'邻家农庄',value:20}]
-                        // ]
-                    },
-                    markPoint : {
-                        symbol:'emptyCircle',
-                        symbolSize : function (v){
-                            return 0 + v/10
-                        },
-                        effect : {
-                            show: true,
-                            shadowBlur : 0
-                        },
-                        itemStyle:{
-                            normal:{
-                                label:{show:false}
-                            }
-                        },
-                        data : [
+												//     [{name:'薰衣草园'}, {name:'迪艇皮划艇',value:90}],
+												//     [{name:'薰衣草园'}, {name:'景观草坪',value:80}],
+												//     [{name:'景观草坪'}, {name:'邻家农庄',value:70}],
+												//     [{name:'邻家烧烤'}, {name:'薰衣草园',value:60}],
+												//     [{name:'迪艇皮划艇'}, {name:'邻家烧烤',value:50}],
+												//     [{name:'邻家烧烤'}, {name:'迪艇皮划艇',value:40}],
+												//     [{name:'薰衣草园'}, {name:'香草园广场',value:30}],
+												//    [{name:'薰衣草园'}, {name:'邻家农庄',value:20}]
+												// ]
+										},
+										markPoint : {
+												symbol:'emptyCircle',
+												symbolSize : function (v){
+														return 0 + v/10
+												},
+												effect : {
+														show: true,
+														shadowBlur : 0
+												},
+												itemStyle:{
+														normal:{
+																label:{show:false}
+														}
+												},
+												data : [
 													{name:'迪艇皮划艇',value:40},
 													{name:'景观草坪',value:40},
 													{name:'邻家农庄',value:40},
@@ -332,23 +324,22 @@
 													{name:'迪艇皮划艇',value:40},
 													{name:'香草园广场',value:40},
 													{name:'邻家农庄',value:40}
-						
-                        ]
-                    }
-                    
-                },
-              
-               
-                
-            ]
-        };
-
-        var myChart = BMapExt.initECharts(container);
-        window.onresize = myChart.onresize;
-        BMapExt.setOption(option);
-    }
-);
-})();
+												]
+										}
+										
+								},
+							
+							
+								
+						]
+				};
+				var myChart = BMapExt.initECharts(container);
+				window.onresize = myChart.onresize;
+				BMapExt.setOption(option);
+			}
+		)
+	})();
+	
 $('.choose-box').click(function(event) {
 	var event=event||e;
 	console.log(event.currentTarget.dataset.index);
@@ -370,19 +361,168 @@ function gsearch(){
 		data: $('#Form').serialize(), //提交的数据
 		success: function (result) {
 			console.log(result);       //打印服务端返回的数据(调试用)
-			//let xData =  result.data.topFiveDate.map((item)=>{return item['toView']});
-		//	console.log(xData);
-		//	reloadRankingList(xData);	
+			let xData = result.xJson.data.traceNum.map((item)=>{return item['fromView']});;
+			let yData =  result.yJson.data.topFiveDate.map((item)=>{return item['toView']});
+			console.log(xData);
+			reloadEcharts(xData);
+			reloadRankingList(yData);	
 		},
 		error : function(error) {
 			console.log(error);
 		}
 	});
 }
+function reloadEcharts(xData){
+	require.config({
+			paths: {
+					echarts: 'static/echarts',
+			},
+			
+	});
+	require(
+		[
+				"echarts",
+				"echarts/chart/main",
+				"echarts/chart/map"
+		],
+		function (echarts, BMapExtension) {
+			// 初始化地图
+			var BMapExt = new BMapExtension($('#main')[0], BMap, echarts,{
+				enableMapClick: false
+			});
+			var map = BMapExt.getMap();
+			var container = BMapExt.getEchartsContainer();
+
+			var startPoint = {
+				x: 121.681012,
+				y: 31.152099
+			};
+			var point = new BMap.Point(startPoint.x, startPoint.y);
+				map.centerAndZoom(point, 17);
+				map.enableScrollWheelZoom(true);
+			var option = {
+				color: ['gold','aqua','lime'],
+				title : {
+					text: '爬虫旅游',
+					subtext:'',
+					x:'right'
+				},
+				tooltip : {
+					trigger: 'item',
+					formatter: function (v) {
+						return v[1].replace(':', ' > ');
+					}
+				},
+							
+				toolbox: {
+					show : true,
+					orient : 'vertical',
+					x: 'right',
+					y: 'center',
+					feature : {
+						mark : {show: true},
+						dataView : {show: true, readOnly: false},
+						restore : {show: true},
+						saveAsImage : {show: true}
+					}
+				},
+				dataRange: {
+					min : 0,
+					max : 100,
+					y: '60%',
+					calculable : true,
+					color: ['#ff3333', 'orange', 'yellow','lime','aqua']
+				},
+				series : [
+					{
+						name:'薰衣草园',
+						type:'map',
+						mapType: 'none',
+						data:[],
+						geoCoord: {
+							'香草园广场':[121.680635,31.14919],
+							'香草园入口':[121.680675,31.148939],
+							'香草园出口':[121.678888,31.148871],
+							'薰衣草园':[121.681627,31.149008],
+							'模纹园艺':[121.679498,31.148421],
+							'玫瑰园':[121.679431,31.147312],
+							'景观草坪':[121.680051,31.146188],
+							'生态园广场':[121.679368,31.150577],
+							'光明生态园出入口':[121.680446,31.151682],
+							'邻家大草坪':[121.677181,31.155112],
+							'骑行之家':[121.679665,31.153219],
+							'邻家农庄':[121.680891,31.153219],
+							'邻家烧烤':[121.675559,31.152895],
+							'迪艇皮划艇':[121.675896,31.153949],
+							'达拉探索营地':[121.675896,31.153949],
+							'邻家露营地':[121.6805,31.152234]
+								
+						},
+
+						markLine : {
+							smooth:true,
+							effect : {
+									show: true,
+									scaleSize: 1,
+									period: 30,
+									color: '#fff',
+									shadowBlur: 10
+							},
+							itemStyle : {
+									normal: {
+											borderWidth:2,
+											lineStyle: {
+													type: 'solid',
+													shadowBlur: 10
+											}
+									}
+							},
+							data : xData
+						},
+						markPoint : {
+							symbol:'emptyCircle',
+							symbolSize : function (v){
+								return 0 + v/10
+							},
+							effect : {
+								show: true,
+								shadowBlur : 0
+							},
+							itemStyle:{
+								normal:{
+										label:{show:false}
+								}
+							},
+							data : [
+								{name:'迪艇皮划艇',value:40},
+								{name:'景观草坪',value:40},
+								{name:'邻家农庄',value:40},
+								{name:'薰衣草园',value:40},
+								{name:'邻家烧烤',value:40},
+								{name:'迪艇皮划艇',value:40},
+								{name:'香草园广场',value:40},
+								{name:'邻家农庄',value:40}
+
+							]
+						}
+							
+					},
+					
+						
+						
+				]
+			};
+			console.log(option);
+			var myChart = BMapExt.initECharts(container);
+			window.onresize = myChart.onresize;
+			BMapExt.setOption(option);
+		}
+	)
+}
 //重新加载排行榜
-function reloadRankingList(xData){
+function reloadRankingList(yData){
 	$("#rankingList").empty();
-	xData.forEach(function(item,index){
+	yData.forEach(function(item,index){
 		$("#rankingList").append(
 		'<li>'+
 		'<div class="num">'  + (index+1) +'</div>'+
@@ -392,23 +532,23 @@ function reloadRankingList(xData){
 		)
 	})
 }
-		//日期框
-		laydate.render({
-			elem: '#startDate'//指定元素
-			,type: 'date'
-			,done: function(value, date, endDate){
-				console.log(value); //得到日期生成的值，如：2017-08-18
-				$("#dtp_input_startDate").val(value);
-			}
-		});
-		laydate.render({
-			elem: '#endDate'//指定元素
-			,type: 'date'
-			,done: function(value, date, endDate){
-				console.log(value); //得到日期生成的值，如：2017-08-18
-				$("#dtp_input_endDate").val(value);
-			}
-		});
+//日期框
+laydate.render({
+	elem: '#startDate'//指定元素
+	,type: 'date'
+	,done: function(value, date, endDate){
+		console.log(value); //得到日期生成的值，如：2017-08-18
+		$("#dtp_input_startDate").val(value);
+	}
+});
+laydate.render({
+	elem: '#endDate'//指定元素
+	,type: 'date'
+	,done: function(value, date, endDate){
+		console.log(value); //得到日期生成的值，如：2017-08-18
+		$("#dtp_input_endDate").val(value);
+	}
+});
     
     
 </script>

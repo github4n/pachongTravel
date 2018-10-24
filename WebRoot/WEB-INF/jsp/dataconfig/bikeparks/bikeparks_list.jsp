@@ -115,6 +115,11 @@
 													
 													<p id="lyzrs"></p> 
 												</li>
+												<li>
+													<p style="background-color:#EA7829">客流临界值</p>
+													
+													<p id="lyzrs"></p> 
+												</li>
 											</ul>
 										</div>
 										
